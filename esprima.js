@@ -5740,7 +5740,7 @@ parseYieldExpression: true
             extra.parseForVariableDeclaration = parseForVariableDeclaration;
             extra.parseFunctionDeclaration = parseFunctionDeclaration;
             extra.parseFunctionExpression = parseFunctionExpression;
-            extra.parseParam = parseParam;
+            extra.parseParams = parseParams;
             extra.parseGlob = parseGlob;
             extra.parseImportDeclaration = parseImportDeclaration;
             extra.parseImportSpecifier = parseImportSpecifier;
@@ -5750,7 +5750,6 @@ parseYieldExpression: true
             extra.parseNonComputedProperty = parseNonComputedProperty;
             extra.parseObjectProperty = parseObjectProperty;
             extra.parseObjectPropertyKey = parseObjectPropertyKey;
-            extra.parseParam = parseParam;
             extra.parsePath = parsePath;
             extra.parsePostfixExpression = parsePostfixExpression;
             extra.parsePrimaryExpression = parsePrimaryExpression;
@@ -5792,7 +5791,7 @@ parseYieldExpression: true
             parseForVariableDeclaration = wrapTracking(extra.parseForVariableDeclaration);
             parseFunctionDeclaration = wrapTracking(extra.parseFunctionDeclaration);
             parseFunctionExpression = wrapTracking(extra.parseFunctionExpression);
-            parseParam = wrapTracking(extra.parseParam);
+            parseParams = wrapTracking(extra.parseParams);
             parseGlob = wrapTracking(extra.parseGlob);
             parseImportDeclaration = wrapTracking(extra.parseImportDeclaration);
             parseImportSpecifier = wrapTracking(extra.parseImportSpecifier);
@@ -5803,7 +5802,6 @@ parseYieldExpression: true
             parseNonComputedProperty = wrapTracking(extra.parseNonComputedProperty);
             parseObjectProperty = wrapTracking(extra.parseObjectProperty);
             parseObjectPropertyKey = wrapTracking(extra.parseObjectPropertyKey);
-            parseParam = wrapTracking(extra.parseParam);
             parsePath = wrapTracking(extra.parsePath);
             parsePostfixExpression = wrapTracking(extra.parsePostfixExpression);
             parsePrimaryExpression = wrapTracking(extra.parsePrimaryExpression);
@@ -5861,7 +5859,6 @@ parseYieldExpression: true
             parseForVariableDeclaration = extra.parseForVariableDeclaration;
             parseFunctionDeclaration = extra.parseFunctionDeclaration;
             parseFunctionExpression = extra.parseFunctionExpression;
-            parseParam = extra.parseParam;
             parseGlob = extra.parseGlob;
             parseImportDeclaration = extra.parseImportDeclaration;
             parseImportSpecifier = extra.parseImportSpecifier;
