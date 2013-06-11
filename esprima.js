@@ -5179,6 +5179,7 @@ parseYieldExpression: true
                 ch = source[index++];
                 if (isLineTerminator(ch.charCodeAt(0))) {
                     ++lineNumber;
+                    lineStart = index;
                 }
                 str += ch;
             }

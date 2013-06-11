@@ -23164,6 +23164,7 @@ var testFixture = {
                 }
             }
         },
+
         '<AbC-def\n  test="&#x0026;&#38;">\nbar\nbaz\n</AbC-def>': {
             type: "ExpressionStatement",
             expression: {
@@ -23291,11 +23292,11 @@ var testFixture = {
                         loc: {
                             start: {
                                 line: 5,
-                                column: 34
+                                column: 2
                             },
                             end: {
                                 line: 5,
-                                column: 41
+                                column: 9
                             }
                         }
                     },
@@ -23306,11 +23307,11 @@ var testFixture = {
                     loc: {
                         start: {
                             line: 5,
-                            column: 32
+                            column: 0
                         },
                         end: {
                             line: 5,
-                            column: 42
+                            column: 10
                         }
                     }
                 },
@@ -23386,7 +23387,7 @@ var testFixture = {
                             },
                             end: {
                                 line: 5,
-                                column: 32
+                                column: 0
                             }
                         }
                     }
@@ -23402,7 +23403,7 @@ var testFixture = {
                     },
                     end: {
                         line: 5,
-                        column: 42
+                        column: 10
                     }
                 }
             },
@@ -23417,10 +23418,11 @@ var testFixture = {
                 },
                 end: {
                     line: 5,
-                    column: 42
+                    column: 10
                 }
             }
         },
+
         '<a b={x ? <c /> : <d />} />': {
             type: "ExpressionStatement",
             expression: {
