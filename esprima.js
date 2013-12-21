@@ -5217,8 +5217,8 @@ parseYieldExpression: true
     }
 
     function isXJSIdentifierPart(ch) {
-        // exclude backslash (\) and add hyphen (-)
-        return (ch !== 92) && (ch === 45 || isIdentifierPart(ch));
+        // exclude backslash (\) and add hyphen (-) and add dot (.)
+        return (ch !== 92) && (ch === 45 || ch === 46 || isIdentifierPart(ch));
     }
 
     function scanXJSIdentifier() {
