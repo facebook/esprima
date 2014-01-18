@@ -7,7 +7,7 @@
         "esparse": "./bin/esparse.js",
         "esvalidate": "./bin/esvalidate.js"
     },
-    "version": "2001.1001.0000-dev-harmony-fb",
+    "version": "2001.2001.0000-dev-harmony-fb",
     "engines": {
         "node": ">=0.4.0"
     },
