@@ -19764,7 +19764,8 @@ var testFixture = {
                 XJSAttribute: "XJSAttribute",
                 XJSSpreadAttribute: 'XJSSpreadAttribute',
                 XJSText: 'XJSText',
-                YieldExpression: 'YieldExpression'
+                YieldExpression: 'YieldExpression',
+                AwaitExpression: 'AwaitExpression'
             }
         },
 
