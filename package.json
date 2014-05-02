@@ -8,8 +8,21 @@
         "esvalidate": "./bin/esvalidate.js"
     },
     "version": "3001.0001.0000-dev-harmony-fb",
+    "files": [
+        "bin",
+        "test/run.js",
+        "test/runner.js",
+        "test/test.js",
+        "test/compat.js",
+        "test/reflect.js",
+        "esprima.js"
+    ],
     "engines": {
         "node": ">=0.4.0"
+    },
+    "author": {
+        "name": "Ariya Hidayat",
+        "email": "ariya.hidayat@gmail.com"
     },
     "maintainers": [{
         "name": "Jeff Morrison",
@@ -19,6 +32,9 @@
     "repository": {
         "type": "git",
         "url": "http://github.com/facebook/esprima.git"
+    },
+    "bugs": {
+        "url": "http://issues.esprima.org"
     },
     "licenses": [{
         "type": "BSD",
@@ -35,7 +51,7 @@
     },
     "scripts": {
         "test": "npm run-script lint && node test/run.js && npm run-script coverage && npm run-script complexity",
-        "lint": "node tools/check-version.js && node_modules/eslint/bin/eslint.js esprima.js && node_modules/jslint/bin/jslint.js esprima.js",
+        "lint": "node tools/check-version.js && node node_modules/eslint/bin/eslint.js esprima.js && node node_modules/jslint/bin/jslint.js esprima.js",
         "coverage": "npm run-script analyze-coverage && npm run-script check-coverage",
         "analyze-coverage": "node node_modules/istanbul/lib/cli.js cover test/runner.js",
         "check-coverage": "node node_modules/istanbul/lib/cli.js check-coverage --statement -8 --branch -28 --function 99.69",
