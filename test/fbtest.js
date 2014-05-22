@@ -417,7 +417,7 @@ var fbTestFixture = {
                             },
                             value: {
                                 type: "Literal",
-                                value: "&",
+                                value: "&amp;",
                                 raw: "\"&amp;\"",
                                 range: [19, 26],
                                 loc: {
@@ -679,7 +679,7 @@ var fbTestFixture = {
                             },
                             value: {
                                 type: "Literal",
-                                value: "&&",
+                                value: "&#x0026;&#38;",
                                 raw: "\"&#x0026;&#38;\"",
                                 range: [
                                     16,
