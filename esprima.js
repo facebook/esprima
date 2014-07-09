@@ -5648,6 +5648,11 @@ parseYieldExpression: true
                 str += scanXJSEntity();
             } else {
                 index++;
+                if (ch === '\r' && source[index] === '\n') {
+                    str += ch;
+                    ch = source[index];
+                    index++;
+                }
                 if (isLineTerminator(ch.charCodeAt(0))) {
                     ++lineNumber;
                     lineStart = index;
