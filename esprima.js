@@ -5647,13 +5647,13 @@ parseYieldExpression: true
             if (ch === '&') {
                 str += scanXJSEntity();
             } else {
-                index++;
-                if (ch === '\r' && source[index] === '\n') {
-                    str += ch;
-                    ch = source[index];
-                    index++;
-                }
+                ++index;
                 if (isLineTerminator(ch.charCodeAt(0))) {
+                    if (ch === '\r' && source[index] === '\n') {
+                        str += ch;
+                        ch = source[index];
+                        index++;
+                    }
                     ++lineNumber;
                     lineStart = index;
                 }
