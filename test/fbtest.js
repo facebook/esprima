@@ -325,7 +325,7 @@ var fbTestFixture = {
                 end: { line: 1, column: 40 }
             }
         },
-        '<a b={" "} c=" " d="&amp;" e="id=1&group=2" />': {
+        '<a b={" "} c=" " d="&amp;" e="id=1&group=2" f="&#123456789" g="&#123*;" h="&#x;" />': {
             type: "ExpressionStatement",
             expression: {
                 type: "XJSElement",
@@ -457,25 +457,106 @@ var fbTestFixture = {
                                 start: { line: 1, column: 27 },
                                 end: { line: 1, column: 43 }
                             }
+                        },
+                        {
+                            type: "XJSAttribute",
+                            name: {
+                                type: "XJSIdentifier",
+                                name: "f",
+                                range: [44, 45],
+                                loc: {
+                                    start: { line: 1, column: 44 },
+                                    end: { line: 1, column: 45 }
+                                }
+                            },
+                            value: {
+                                type: "Literal",
+                                value: "&#123456789",
+                                raw: "\"&#123456789\"",
+                                range: [46, 59],
+                                loc: {
+                                    start: { line: 1, column: 46 },
+                                    end: { line: 1, column: 59 }
+                                }
+                            },
+                            range: [44, 59],
+                            loc: {
+                                start: { line: 1, column: 44 },
+                                end: { line: 1, column: 59 }
+                            }
+                        },
+                        {
+                            type: "XJSAttribute",
+                            name: {
+                                type: "XJSIdentifier",
+                                name: "g",
+                                range: [60, 61],
+                                loc: {
+                                    start: { line: 1, column: 60 },
+                                    end: { line: 1, column: 61 }
+                                }
+                            },
+                            value: {
+                                type: "Literal",
+                                value: "&#123*;",
+                                raw: "\"&#123*;\"",
+                                range: [62, 71],
+                                loc: {
+                                    start: { line: 1, column: 62 },
+                                    end: { line: 1, column: 71 }
+                                }
+                            },
+                            range: [60, 71],
+                            loc: {
+                                start: { line: 1, column: 60 },
+                                end: { line: 1, column: 71 }
+                            }
+                        },
+                        {
+                            type: "XJSAttribute",
+                            name: {
+                                type: "XJSIdentifier",
+                                name: "h",
+                                range: [72, 73],
+                                loc: {
+                                    start: { line: 1, column: 72 },
+                                    end: { line: 1, column: 73 }
+                                }
+                            },
+                            value: {
+                                type: "Literal",
+                                value: "&#x;",
+                                raw: "\"&#x;\"",
+                                range: [74, 80],
+                                loc: {
+                                    start: { line: 1, column: 74 },
+                                    end: { line: 1, column: 80 }
+                                }
+                            },
+                            range: [72, 80],
+                            loc: {
+                                start: { line: 1, column: 72 },
+                                end: { line: 1, column: 80 }
+                            }
                         }
                     ],
-                    range: [0, 46],
+                    range: [0, 83],
                     loc: {
                         start: { line: 1, column: 0 },
-                        end: { line: 1, column: 46 }
+                        end: { line: 1, column: 83 }
                     }
                 },
                 children: [],
-                range: [0, 46],
+                range: [0, 83],
                 loc: {
                     start: { line: 1, column: 0 },
-                    end: { line: 1, column: 46 }
+                    end: { line: 1, column: 83 }
                 }
             },
-            range: [0, 46],
+            range: [0, 83],
             loc: {
                 start: { line: 1, column: 0 },
-                end: { line: 1, column: 46 }
+                end: { line: 1, column: 83 }
             }
         },
         '<a\n/>': {
