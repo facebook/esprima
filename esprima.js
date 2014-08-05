@@ -5614,7 +5614,7 @@ parseYieldExpression: true
     }
 
     function scanXJSEntity() {
-        var ch, str = '', count = 0, entity;
+        var ch, str = '', start = index, count = 0, entity;
         ch = source[index];
         assert(ch === '&', 'Entity must start with an ampersand');
         index++;
@@ -5630,8 +5630,11 @@ parseYieldExpression: true
             entity = String.fromCharCode(parseInt(str.substr(2), 16));
         } else if (str[0] === '#') {
             entity = String.fromCharCode(parseInt(str.substr(1), 10));
-        } else {
+        } else if (XHTMLEntities[str]) {
             entity = XHTMLEntities[str];
+        } else {
+            entity = '&';
+            index = start + 1;
         }
         return entity;
     }

@@ -325,7 +325,7 @@ var fbTestFixture = {
                 end: { line: 1, column: 40 }
             }
         },
-        '<a b={" "} c=" " d="&amp;" />': {
+        '<a b={" "} c=" " d="&amp;" e="id=1&group=2" />': {
             type: "ExpressionStatement",
             expression: {
                 type: "XJSElement",
@@ -430,25 +430,52 @@ var fbTestFixture = {
                                 start: { line: 1, column: 17 },
                                 end: { line: 1, column: 26 }
                             }
+                        },
+                        {
+                            type: "XJSAttribute",
+                            name: {
+                                type: "XJSIdentifier",
+                                name: "e",
+                                range: [27, 28],
+                                loc: {
+                                    start: { line: 1, column: 27 },
+                                    end: { line: 1, column: 28 }
+                                }
+                            },
+                            value: {
+                                type: "Literal",
+                                value: "id=1&group=2",
+                                raw: "\"id=1&group=2\"",
+                                range: [29, 43],
+                                loc: {
+                                    start: { line: 1, column: 29 },
+                                    end: { line: 1, column: 43 }
+                                }
+                            },
+                            range: [27, 43],
+                            loc: {
+                                start: { line: 1, column: 27 },
+                                end: { line: 1, column: 43 }
+                            }
                         }
                     ],
-                    range: [0, 29],
+                    range: [0, 46],
                     loc: {
                         start: { line: 1, column: 0 },
-                        end: { line: 1, column: 29 }
+                        end: { line: 1, column: 46 }
                     }
                 },
                 children: [],
-                range: [0, 29],
+                range: [0, 46],
                 loc: {
                     start: { line: 1, column: 0 },
-                    end: { line: 1, column: 29 }
+                    end: { line: 1, column: 46 }
                 }
             },
-            range: [0, 29],
+            range: [0, 46],
             loc: {
                 start: { line: 1, column: 0 },
-                end: { line: 1, column: 29 }
+                end: { line: 1, column: 46 }
             }
         },
         '<a\n/>': {
