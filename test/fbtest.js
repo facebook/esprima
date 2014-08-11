@@ -637,7 +637,7 @@ var fbTestFixture = {
             }
         },
 
-        '<AbC-def\n  test="&#x0026;&#38;">\nbar\nbaz\n</AbC-def>': {
+        '<AbC-def\n  test="&#x0026;&#38;">\nbar\nbaz\r\n</AbC-def>': {
             type: "ExpressionStatement",
             expression: {
                 type: "XJSElement",
@@ -739,8 +739,8 @@ var fbTestFixture = {
                         type: "XJSIdentifier",
                         name: "AbC-def",
                         range: [
-                            43,
-                            50
+                            44,
+                            51
                         ],
                         loc: {
                             start: {
@@ -754,8 +754,8 @@ var fbTestFixture = {
                         }
                     },
                     range: [
-                        41,
-                        51
+                        42,
+                        52
                     ],
                     loc: {
                         start: {
@@ -771,11 +771,11 @@ var fbTestFixture = {
                 children: [
                     {
                         type: "Literal",
-                        value: "\nbar\nbaz\n",
-                        raw: "\nbar\nbaz\n",
+                        value: "\nbar\nbaz\r\n",
+                        raw: "\nbar\nbaz\r\n",
                         range: [
                             32,
-                            41
+                            42
                         ],
                         loc: {
                             start: {
@@ -791,7 +791,7 @@ var fbTestFixture = {
                 ],
                 range: [
                     0,
-                    51
+                    52
                 ],
                 loc: {
                     start: {
@@ -806,7 +806,7 @@ var fbTestFixture = {
             },
             range: [
                 0,
-                51
+                52
             ],
             loc: {
                 start: {
