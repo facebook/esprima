@@ -1276,7 +1276,7 @@ parseYieldExpression: true
     }
 
     function scanRegExp() {
-        var str, ch, start, pattern, flags, value, classMarker = false, restore, terminated = false;
+        var str, ch, start, pattern, flags, value, classMarker = false, restore, terminated = false, tmp;
 
         lookahead = null;
         skipComment();
@@ -1352,10 +1352,32 @@ parseYieldExpression: true
             }
         }
 
+        tmp = pattern;
+
+        if (flags.indexOf('u') >= 0) {
+            // Replace each astral symbol and every Unicode code point
+            // escape sequence that represents such a symbol with a single
+            // ASCII symbol to avoid throwing on regular expressions that
+            // are only valid in combination with the `/u` flag.
+            tmp = tmp
+                .replace(/\\u\{([0-9a-fA-F]{5,6})\}/g, 'x')
+                .replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, 'x');
+        }
+
+        // First, detect invalid regular expressions.
         try {
-            value = new RegExp(pattern, flags);
+            value = new RegExp(tmp);
         } catch (e) {
             throwError({}, Messages.InvalidRegExp);
+        }
+
+        // Store a regular expression expression object for this pattern-flag
+        // pair, or `null` in case the current environment doesn't support the
+        // flags it uses.
+        try {
+            value = new RegExp(pattern, flags);
+        } catch (exception) {
+            value = null;
         }
 
         peek();
