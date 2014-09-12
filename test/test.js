@@ -5292,6 +5292,162 @@ var testFixture = {
             }]
         },
 
+        'var x = /[a-z]/u': {
+            type: 'Program',
+            body: [{
+                type: 'VariableDeclaration',
+                declarations: [{
+                    type: 'VariableDeclarator',
+                    id: {
+                        type: 'Identifier',
+                        name: 'x',
+                        range: [4, 5],
+                        loc: {
+                            start: { line: 1, column: 4 },
+                            end: { line: 1, column: 5 }
+                        }
+                    },
+                    init: {
+                        type: 'Literal',
+                        value: null,
+                        raw: '/[a-z]/u',
+                        range: [8, 16],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 16 }
+                        }
+                    },
+                    range: [4, 16],
+                    loc: {
+                        start: { line: 1, column: 4 },
+                        end: { line: 1, column: 16 }
+                    }
+                }],
+                kind: 'var',
+                range: [0, 16],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 16 }
+                }
+            }],
+            range: [0, 16],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 16 }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'var',
+                range: [0, 3],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 3 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'x',
+                range: [4, 5],
+                loc: {
+                    start: { line: 1, column: 4 },
+                    end: { line: 1, column: 5 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '=',
+                range: [6, 7],
+                loc: {
+                    start: { line: 1, column: 6 },
+                    end: { line: 1, column: 7 }
+                }
+            }, {
+                type: 'RegularExpression',
+                value: '/[a-z]/u',
+                range: [8, 16],
+                loc: {
+                    start: { line: 1, column: 8 },
+                    end: { line: 1, column: 16 }
+                }
+            }]
+        },
+
+        'var x = /[a-z]/y': {
+            type: 'Program',
+            body: [{
+                type: 'VariableDeclaration',
+                declarations: [{
+                    type: 'VariableDeclarator',
+                    id: {
+                        type: 'Identifier',
+                        name: 'x',
+                        range: [4, 5],
+                        loc: {
+                            start: { line: 1, column: 4 },
+                            end: { line: 1, column: 5 }
+                        }
+                    },
+                    init: {
+                        type: 'Literal',
+                        value: null,
+                        raw: '/[a-z]/y',
+                        range: [8, 16],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 16 }
+                        }
+                    },
+                    range: [4, 16],
+                    loc: {
+                        start: { line: 1, column: 4 },
+                        end: { line: 1, column: 16 }
+                    }
+                }],
+                kind: 'var',
+                range: [0, 16],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 16 }
+                }
+            }],
+            range: [0, 16],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 16 }
+            },
+            tokens: [{
+                type: 'Keyword',
+                value: 'var',
+                range: [0, 3],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 3 }
+                }
+            }, {
+                type: 'Identifier',
+                value: 'x',
+                range: [4, 5],
+                loc: {
+                    start: { line: 1, column: 4 },
+                    end: { line: 1, column: 5 }
+                }
+            }, {
+                type: 'Punctuator',
+                value: '=',
+                range: [6, 7],
+                loc: {
+                    start: { line: 1, column: 6 },
+                    end: { line: 1, column: 7 }
+                }
+            }, {
+                type: 'RegularExpression',
+                value: '/[a-z]/y',
+                range: [8, 16],
+                loc: {
+                    start: { line: 1, column: 8 },
+                    end: { line: 1, column: 16 }
+                }
+            }]
+        },
+
         'var x = /[x-z]/i': {
             type: 'Program',
             body: [{
@@ -16975,13 +17131,6 @@ var testFixture = {
             lineNumber: 1,
             column: 6,
             message: 'Error: Line 1: Invalid regular expression: missing /'
-        },
-
-        'var x = /[a-z]/\\ux': {
-            index: 18,
-            lineNumber: 1,
-            column: 19,
-            message: 'Error: Line 1: Invalid regular expression'
         },
 
         '3 = 4': {
