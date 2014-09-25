@@ -5120,7 +5120,7 @@ parseYieldExpression: true, parseAwaitExpression: true
     function parseMethodDefinition(existingPropNames) {
         var token, key, param, propType, isValidDuplicateProp = false,
             isAsync, marker = markerCreate(), token2, parametricType,
-            parametricTypeMarker, annotationMarker;
+            parametricTypeMarker, annotationMarker, methodName;
 
         if (lookahead.value === 'static') {
             propType = ClassPropertyType.static;
@@ -5145,24 +5145,25 @@ parseYieldExpression: true, parseAwaitExpression: true
 
         if (token.value === 'get' && !match('(')) {
             key = parseObjectPropertyKey();
+            methodName = key.type === Syntax.Literal ? key.value : key.name;
 
             // It is a syntax error if any other properties have a name
             // duplicating this one unless they are a setter
-            if (existingPropNames[propType].hasOwnProperty(key.name)) {
+            if (existingPropNames[propType].hasOwnProperty(methodName)) {
                 isValidDuplicateProp =
                     // There isn't already a getter for this prop
-                    existingPropNames[propType][key.name].get === undefined
+                    existingPropNames[propType][methodName].get === undefined
                     // There isn't already a data prop by this name
-                    && existingPropNames[propType][key.name].data === undefined
+                    && existingPropNames[propType][methodName].data === undefined
                     // The only existing prop by this name is a setter
-                    && existingPropNames[propType][key.name].set !== undefined;
+                    && existingPropNames[propType][methodName].set !== undefined;
                 if (!isValidDuplicateProp) {
                     throwError(key, Messages.IllegalDuplicateClassProperty);
                 }
             } else {
-                existingPropNames[propType][key.name] = {};
+                existingPropNames[propType][methodName] = {};
             }
-            existingPropNames[propType][key.name].get = true;
+            existingPropNames[propType][methodName].get = true;
 
             expect('(');
             expect(')');
@@ -5175,24 +5176,25 @@ parseYieldExpression: true, parseAwaitExpression: true
         }
         if (token.value === 'set' && !match('(')) {
             key = parseObjectPropertyKey();
+            methodName = key.type === Syntax.Literal ? key.value : key.name;
 
             // It is a syntax error if any other properties have a name
             // duplicating this one unless they are a getter
-            if (existingPropNames[propType].hasOwnProperty(key.name)) {
+            if (existingPropNames[propType].hasOwnProperty(methodName)) {
                 isValidDuplicateProp =
                     // There isn't already a setter for this prop
-                    existingPropNames[propType][key.name].set === undefined
+                    existingPropNames[propType][methodName].set === undefined
                     // There isn't already a data prop by this name
-                    && existingPropNames[propType][key.name].data === undefined
+                    && existingPropNames[propType][methodName].data === undefined
                     // The only existing prop by this name is a getter
-                    && existingPropNames[propType][key.name].get !== undefined;
+                    && existingPropNames[propType][methodName].get !== undefined;
                 if (!isValidDuplicateProp) {
                     throwError(key, Messages.IllegalDuplicateClassProperty);
                 }
             } else {
-                existingPropNames[propType][key.name] = {};
+                existingPropNames[propType][methodName] = {};
             }
-            existingPropNames[propType][key.name].set = true;
+            existingPropNames[propType][methodName].set = true;
 
             expect('(');
             token = lookahead;
@@ -5217,12 +5219,13 @@ parseYieldExpression: true, parseAwaitExpression: true
 
         // It is a syntax error if any other properties have the same name as a
         // non-getter, non-setter method
-        if (existingPropNames[propType].hasOwnProperty(key.name)) {
+        methodName = key.type === Syntax.Literal ? key.value : key.name;
+        if (existingPropNames[propType].hasOwnProperty(methodName)) {
             throwError(key, Messages.IllegalDuplicateClassProperty);
         } else {
-            existingPropNames[propType][key.name] = {};
+            existingPropNames[propType][methodName] = {};
         }
-        existingPropNames[propType][key.name].data = true;
+        existingPropNames[propType][methodName].data = true;
 
         return markerApply(marker, delegate.createMethodDefinition(
             propType,
