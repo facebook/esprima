@@ -10799,6 +10799,118 @@ var harmonyTestFixture = {
             }
         },
 
+        'class A { 42() {} "foo"() {}}': {
+            type: 'ClassDeclaration',
+            id: {
+                type: 'Identifier',
+                name: 'A',
+                range: [6, 7],
+                loc: {
+                    start: { line: 1, column: 6 },
+                    end: { line: 1, column: 7 }
+                }
+            },
+            superClass: null,
+            body: {
+                type: 'ClassBody',
+                body: [{
+                    type: 'MethodDefinition',
+                    key: {
+                        type: 'Literal',
+                        value: 42,
+                        raw: '42',
+                        range: [10, 12],
+                        loc: {
+                            start: { line: 1, column: 10 },
+                            end: { line: 1, column: 12 }
+                        }
+                    },
+                    value: {
+                        type: 'FunctionExpression',
+                        id: null,
+                        params: [],
+                        defaults: [],
+                        body: {
+                            type: 'BlockStatement',
+                            body: [],
+                            range: [15, 17],
+                            loc: {
+                                start: { line: 1, column: 15 },
+                                end: { line: 1, column: 17 }
+                            }
+                        },
+                        rest: null,
+                        generator: false,
+                        expression: false,
+                        range: [15, 17],
+                        loc: {
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 17 }
+                        }
+                    },
+                    kind: '',
+                    'static': false,
+                    range: [10, 17],
+                    loc: {
+                        start: { line: 1, column: 10 },
+                        end: { line: 1, column: 17 }
+                    }
+                }, {
+                    type: 'MethodDefinition',
+                    key: {
+                        type: 'Literal',
+                        value: 'foo',
+                        raw: '"foo"',
+                        range: [18, 23],
+                        loc: {
+                            start: { line: 1, column: 18 },
+                            end: { line: 1, column: 23 }
+                        }
+                    },
+                    value: {
+                        type: 'FunctionExpression',
+                        id: null,
+                        params: [],
+                        defaults: [],
+                        body: {
+                            type: 'BlockStatement',
+                            body: [],
+                            range: [26, 28],
+                            loc: {
+                                start: { line: 1, column: 26 },
+                                end: { line: 1, column: 28 }
+                            }
+                        },
+                        rest: null,
+                        generator: false,
+                        expression: false,
+                        range: [26, 28],
+                        loc: {
+                            start: { line: 1, column: 26 },
+                            end: { line: 1, column: 28 }
+                        }
+                    },
+                    kind: '',
+                    'static': false,
+                    range: [18, 28],
+                    loc: {
+                        start: { line: 1, column: 18 },
+                        end: { line: 1, column: 28 }
+                    }
+                }],
+                range: [8, 29],
+                loc: {
+                    start: { line: 1, column: 8 },
+                    end: { line: 1, column: 29 }
+                }
+            },
+            range: [0, 29],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 29 }
+            }
+        },
+
         'class A { get foo() {} get foo() {} }': {
             index: 30,
             lineNumber: 1,
@@ -10843,6 +10955,14 @@ var harmonyTestFixture = {
             index: 26,
             lineNumber: 1,
             column: 27,
+            message: 'Error: Line 1: Illegal duplicate property in class definition',
+            description: 'Illegal duplicate property in class definition'
+        },
+
+        'class A { foo() {} "foo"() {} }': {
+            index: 24,
+            lineNumber: 1,
+            column: 25,
             message: 'Error: Line 1: Illegal duplicate property in class definition',
             description: 'Illegal duplicate property in class definition'
         },
