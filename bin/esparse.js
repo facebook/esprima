@@ -30,7 +30,7 @@ var fs, esprima, fname, content, options, syntax;
 
 if (typeof require === 'function') {
     fs = require('fs');
-    esprima = require('esprima');
+    esprima = require('esprima-fb');
 } else if (typeof load === 'function') {
     try {
         load('esprima.js');
