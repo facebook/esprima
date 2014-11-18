@@ -56,40 +56,6 @@ var modulesTestFixture = {
                 end: { line: 1, column: 18 }
             }
         },
-        'export default function () {}': {
-            type: 'ExportDeclaration',
-            'default': true,
-            declaration: {
-                type: 'FunctionExpression',
-                id: null,
-                params: [],
-                defaults: [],
-                body: {
-                    type: 'BlockStatement',
-                    body: [],
-                    range: [27, 29],
-                    loc: {
-                        start: { line: 1, column: 27 },
-                        end: { line: 1, column: 29 }
-                    }
-                },
-                rest: null,
-                generator: false,
-                expression: false,
-                range: [15, 29],
-                loc: {
-                    start: { line: 1, column: 15 },
-                    end: { line: 1, column: 29 }
-                }
-            },
-            specifiers: [],
-            source: null,
-            range: [0, 29],
-            loc: {
-                start: { line: 1, column: 0 },
-                end: { line: 1, column: 29 }
-            }
-        },
         'export default function foo() {}': {
             type: 'ExportDeclaration',
             'default': true,
@@ -124,15 +90,7 @@ var modulesTestFixture = {
                     end: { line: 1, column: 32 }
                 }
             },
-            specifiers: [{
-                type: 'Identifier',
-                name: 'foo',
-                range: [24, 27],
-                loc: {
-                    start: { line: 1, column: 24 },
-                    end: { line: 1, column: 27 }
-                }
-            }],
+            specifiers: [],
             source: null,
             range: [0, 32],
             loc: {
@@ -593,6 +551,39 @@ var modulesTestFixture = {
         },
 
         // named exports
+        'export {};': {
+            type: 'ExportDeclaration',
+            'default': false,
+            declaration: null,
+            specifiers: [],
+            source: null,
+            range: [0, 10],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 10 }
+            }
+        },
+        'export {} from "foo";': {
+            type: 'ExportDeclaration',
+            'default': false,
+            declaration: null,
+            specifiers: [],
+            source: {
+                type: 'ModuleSpecifier',
+                value: 'foo',
+                raw: '"foo"',
+                range: [15, 20],
+                loc: {
+                    start: { line: 1, column: 15 },
+                    end: { line: 1, column: 20 }
+                }
+            },
+            range: [0, 21],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 21 }
+            }
+        },
         'export {foo};': {
             type: 'ExportDeclaration',
             'default': false,
@@ -2321,6 +2312,12 @@ var modulesTestFixture = {
     },
 
     'Modules Invalid Syntax': {
+        'export default function () {}': {
+          index: 24,
+          lineNumber: 1,
+          column: 25,
+          message: 'Error: Line 1: Unexpected token ('
+        },
 
         'import foo': {
             index: 10,
@@ -2360,11 +2357,11 @@ var modulesTestFixture = {
             description: 'Unexpected token default'
         },
         'export default from "foo"': {
-            index: 14,
+            index: 20,
             lineNumber: 1,
-            column: 15,
-            message: 'Error: Line 1: Unexpected token from',
-            description: 'Unexpected token from'
+            column: 21,
+            message: 'Error: Line 1: Unexpected string',
+            description: 'Unexpected string'
         },
         'export {default}': {
             index: 16,

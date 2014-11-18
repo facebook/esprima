@@ -4656,7 +4656,7 @@ parseYieldExpression: true, parseAwaitExpression: true
     }
 
     function parseExportDeclaration() {
-        var backtrackToken, id, previousAllowKeyword, declaration = null,
+        var previousAllowKeyword, declaration = null,
             isExportFromIdentifier,
             src = null, specifiers = [],
             marker = markerCreate();
@@ -4667,43 +4667,15 @@ parseYieldExpression: true, parseAwaitExpression: true
             // covers:
             // export default ...
             lex();
-            if (matchKeyword('function') || matchKeyword('class')) {
-                backtrackToken = lookahead;
-                lex();
-                if (isIdentifierName(lookahead)) {
-                    // covers:
-                    // export default function foo () {}
-                    // export default class foo {}
-                    id = parseNonComputedProperty();
-                    rewind(backtrackToken);
-                    return markerApply(marker, delegate.createExportDeclaration(true, parseSourceElement(), [id], null));
-                }
+            if (matchKeyword('function')) {
                 // covers:
-                // export default function () {}
-                // export default class {}
-                rewind(backtrackToken);
-                switch (lookahead.value) {
-                case 'class':
-                    return markerApply(marker, delegate.createExportDeclaration(true, parseClassExpression(), [], null));
-                case 'function':
-                    return markerApply(marker, delegate.createExportDeclaration(true, parseFunctionExpression(), [], null));
-                }
+                // export default function foo () {}
+                return markerApply(marker, delegate.createExportDeclaration(true, parseFunctionDeclaration(), [], null));
             }
 
-            if (matchContextualKeyword('from')) {
-                throwError({}, Messages.UnexpectedToken, lookahead.value);
-            }
-
-            // covers:
-            // export default {};
-            // export default [];
-            if (match('{')) {
-                declaration = parseObjectInitialiser();
-            } else if (match('[')) {
-                declaration = parseArrayInitialiser();
-            } else {
-                declaration = parseAssignmentExpression();
-            }
+            // covers
+            // export default [ASSIGNMENT_EXPRESSION];
+            declaration = parseAssignmentExpression();
             consumeSemicolon();
             return markerApply(marker, delegate.createExportDeclaration(true, declaration, [], null));
         }
@@ -4739,10 +4711,12 @@ parseYieldExpression: true, parseAwaitExpression: true
         }
 
         expect('{');
-        do {
-            isExportFromIdentifier = isExportFromIdentifier || matchKeyword('default');
-            specifiers.push(parseExportSpecifier());
-        } while (match(',') && lex());
+        if (!match('}')) {
+            do {
+                isExportFromIdentifier = isExportFromIdentifier || matchKeyword('default');
+                specifiers.push(parseExportSpecifier());
+            } while (match(',') && lex());
+        }
         expect('}');
 
         if (matchContextualKeyword('from')) {
