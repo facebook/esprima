@@ -5472,7 +5472,7 @@ var testFixture = {
             }]
         },
 
-        'var x = /[x-z]/i': {
+        'var x = { xfoo: /[x-z]/i }': {
             type: 'Program',
             body: [{
                 type: 'VariableDeclaration',
