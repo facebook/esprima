@@ -1968,7 +1968,7 @@ var harmonyTestFixture = {
             }
         },
 
-        'foo((x, y) => {})': {
+        'foo((x, y ) => {})': {
             type: 'ExpressionStatement',
             expression: {
                 type: 'CallExpression',
@@ -2005,36 +2005,99 @@ var harmonyTestFixture = {
                     body: {
                         type: 'BlockStatement',
                         body: [],
-                        range: [14, 16],
+                        range: [15, 17],
                         loc: {
-                            start: { line: 1, column: 14 },
-                            end: { line: 1, column: 16 }
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 17 }
                         }
                     },
                     rest: null,
                     generator: false,
                     expression: false,
-                    range: [4, 16],
+                    range: [4, 17],
                     loc: {
                         start: { line: 1, column: 4 },
-                        end: { line: 1, column: 16 }
+                        end: { line: 1, column: 17 }
                     }
                 }],
-                range: [0, 17],
+                range: [0, 18],
                 loc: {
                     start: { line: 1, column: 0 },
-                    end: { line: 1, column: 17 }
+                    end: { line: 1, column: 18 }
                 }
             },
-            range: [0, 17],
+            range: [0, 18],
             loc: {
                 start: { line: 1, column: 0 },
-                end: { line: 1, column: 17 }
+                end: { line: 1, column: 18 }
+            }
+        },
+
+        'foo((x, y,) => {})': {
+            type: 'ExpressionStatement',
+            expression: {
+                type: 'CallExpression',
+                callee: {
+                    type: 'Identifier',
+                    name: 'foo',
+                    range: [0, 3],
+                    loc: {
+                        start: { line: 1, column: 0 },
+                        end: { line: 1, column: 3 }
+                    }
+                },
+                'arguments': [{
+                    type: 'ArrowFunctionExpression',
+                    id: null,
+                    params: [{
+                        type: 'Identifier',
+                        name: 'x',
+                        range: [5, 6],
+                        loc: {
+                            start: { line: 1, column: 5 },
+                            end: { line: 1, column: 6 }
+                        }
+                    }, {
+                        type: 'Identifier',
+                        name: 'y',
+                        range: [8, 9],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 9 }
+                        }
+                    }],
+                    defaults: [],
+                    body: {
+                        type: 'BlockStatement',
+                        body: [],
+                        range: [15, 17],
+                        loc: {
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 17 }
+                        }
+                    },
+                    rest: null,
+                    generator: false,
+                    expression: false,
+                    range: [4, 17],
+                    loc: {
+                        start: { line: 1, column: 4 },
+                        end: { line: 1, column: 17 }
+                    }
+                }],
+                range: [0, 18],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 18 }
+                }
+            },
+            range: [0, 18],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 18 }
             }
         }
-
     },
-
 
     // ECMAScript 6th Syntax, 13.13 Method Definitions
 
@@ -11370,7 +11433,7 @@ var harmonyTestFixture = {
     // ECMAScript 6th Syntax, 13 - Rest parameters
     // http://wiki.ecmascript.org/doku.php?id=harmony:rest_parameters
     'ES6: Rest parameters': {
-        'function f(a, ...b) {}': {
+        'function f(a, ...b ) {}': {
             type: 'FunctionDeclaration',
             id: {
                 type: 'Identifier',
@@ -11394,10 +11457,10 @@ var harmonyTestFixture = {
             body: {
                 type: 'BlockStatement',
                 body: [],
-                range: [20, 22],
+                range: [21, 23],
                 loc: {
-                    start: { line: 1, column: 20 },
-                    end: { line: 1, column: 22 }
+                    start: { line: 1, column: 21 },
+                    end: { line: 1, column: 23 }
                 }
             },
             rest: {
@@ -11411,12 +11474,60 @@ var harmonyTestFixture = {
             },
             generator: false,
             expression: false,
-            range: [0, 22],
+            range: [0, 23],
             loc: {
                 start: { line: 1, column: 0 },
-                end: { line: 1, column: 22 }
+                end: { line: 1, column: 23 }
             }
-        }
+        },
+
+        'function f(a, ...b,) {}': {
+            type: 'FunctionDeclaration',
+            id: {
+                type: 'Identifier',
+                name: 'f',
+                range: [9, 10],
+                loc: {
+                    start: { line: 1, column: 9 },
+                    end: { line: 1, column: 10 }
+                }
+            },
+            params: [{
+                type: 'Identifier',
+                name: 'a',
+                range: [11, 12],
+                loc: {
+                    start: { line: 1, column: 11 },
+                    end: { line: 1, column: 12 }
+                }
+            }],
+            defaults: [],
+            body: {
+                type: 'BlockStatement',
+                body: [],
+                range: [21, 23],
+                loc: {
+                    start: { line: 1, column: 21 },
+                    end: { line: 1, column: 23 }
+                }
+            },
+            rest: {
+                type: 'Identifier',
+                name: 'b',
+                range: [17, 18],
+                loc: {
+                    start: { line: 1, column: 17 },
+                    end: { line: 1, column: 18 }
+                }
+            },
+            generator: false,
+            expression: false,
+            range: [0, 23],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 23 }
+            }
+        },
     },
 
     'ES6: Destructured Parameters': {
@@ -12858,7 +12969,7 @@ var harmonyTestFixture = {
             }
         },
 
-        '(a, ...b) => {}': {
+        '(a, ...b ) => {}': {
             type: 'ExpressionStatement',
             expression: {
                 type: 'ArrowFunctionExpression',
@@ -12876,10 +12987,10 @@ var harmonyTestFixture = {
                 body: {
                     type: 'BlockStatement',
                     body: [],
-                    range: [13, 15],
+                    range: [14, 16],
                     loc: {
-                        start: { line: 1, column: 13 },
-                        end: { line: 1, column: 15 }
+                        start: { line: 1, column: 14 },
+                        end: { line: 1, column: 16 }
                     }
                 },
                 rest: {
@@ -12893,16 +13004,64 @@ var harmonyTestFixture = {
                 },
                 generator: false,
                 expression: false,
-                range: [0, 15],
+                range: [0, 16],
                 loc: {
                     start: { line: 1, column: 0 },
-                    end: { line: 1, column: 15 }
+                    end: { line: 1, column: 16 }
                 }
             },
-            range: [0, 15],
+            range: [0, 16],
             loc: {
                 start: { line: 1, column: 0 },
-                end: { line: 1, column: 15 }
+                end: { line: 1, column: 16 }
+            }
+        },
+
+        '(a, ...b,) => {}': {
+            type: 'ExpressionStatement',
+            expression: {
+                type: 'ArrowFunctionExpression',
+                id: null,
+                params: [{
+                    type: 'Identifier',
+                    name: 'a',
+                    range: [1, 2],
+                    loc: {
+                        start: { line: 1, column: 1 },
+                        end: { line: 1, column: 2 }
+                    }
+                }],
+                defaults: [],
+                body: {
+                    type: 'BlockStatement',
+                    body: [],
+                    range: [14, 16],
+                    loc: {
+                        start: { line: 1, column: 14 },
+                        end: { line: 1, column: 16 }
+                    }
+                },
+                rest: {
+                    type: 'Identifier',
+                    name: 'b',
+                    range: [7, 8],
+                    loc: {
+                        start: { line: 1, column: 7 },
+                        end: { line: 1, column: 8 }
+                    }
+                },
+                generator: false,
+                expression: false,
+                range: [0, 16],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 16 }
+                }
+            },
+            range: [0, 16],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 16 }
             }
         },
 
@@ -15983,11 +16142,18 @@ var harmonyTestFixture = {
             message: 'Error: Line 1: Spread must be the final element of an element list'
         },
 
-        'if (b,...a, );': {
+        'if (b,...a);': {
             index: 10,
             lineNumber: 1,
             column: 11,
-            message: 'Error: Line 1: Spread must be the final element of an element list'
+            message: 'Error: Line 1: Illegal spread element'
+        },
+
+        'if (b,...a, );': {
+            index: 11,
+            lineNumber: 1,
+            column: 12,
+            message: 'Error: Line 1: Illegal spread element'
         },
 
         '(b, ...a)': {

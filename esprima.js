@@ -4093,11 +4093,19 @@ parseYieldExpression: true, parseAwaitExpression: true
                 }
 
                 lex();
+
+                if (match(')')) {
+                    break;
+                }
+
                 expr = parseSpreadOrAssignmentExpression();
                 expressions.push(expr);
 
                 if (expr.type === Syntax.SpreadElement) {
                     spreadFound = true;
+                    if (match(',') && lookahead2().value === ')') {
+                        lex();
+                    }
                     if (!match(')')) {
                         throwError({}, Messages.ElementAfterSpreadElement);
                     }
@@ -5692,6 +5700,9 @@ parseYieldExpression: true, parseAwaitExpression: true
         }
 
         if (rest) {
+            if (match(',') && lookahead2().value === ')') {
+                lex();
+            }
             if (!match(')')) {
                 throwError({}, Messages.ParameterAfterRestParameter);
             }
@@ -5724,6 +5735,9 @@ parseYieldExpression: true, parseAwaitExpression: true
                     break;
                 }
                 expect(',');
+                if (match(')')) {
+                    break;
+                }
             }
         }
 
