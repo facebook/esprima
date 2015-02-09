@@ -277,6 +277,7 @@ parseYieldExpression: true, parseAwaitExpression: true
         IllegalContinue: 'Illegal continue statement',
         IllegalBreak: 'Illegal break statement',
         IllegalDuplicateClassProperty: 'Illegal duplicate property in class definition',
+        IllegalClassConstructorProperty: 'Illegal constructor property in class definition',
         IllegalReturn: 'Illegal return statement',
         IllegalSpread: 'Illegal spread element',
         StrictModeWith:  'Strict mode code may not include a with statement',
@@ -6010,54 +6011,25 @@ parseYieldExpression: true, parseAwaitExpression: true
         return markerApply(marker, delegate.createAwaitExpression(expr));
     }
 
-    // 14 Classes
+    // 14 Functions and classes
 
-    function validateDuplicateProp(propMap, key, accessor) {
-        var propInfo, reversed, name, isValidDuplicateProp;
+    // 14.1 Functions is defined above (13 in ES5)
+    // 14.2 Arrow Functions Definitions is defined in (7.3 assignments)
 
-        name = getFieldName(key);
-
-        if (propMap.has(name)) {
-            propInfo = propMap.get(name);
-            if (accessor === 'data') {
-                isValidDuplicateProp = false;
-            } else {
-                if (accessor === 'get') {
-                    reversed = 'set';
-                } else {
-                    reversed = 'get';
-                }
-
-                isValidDuplicateProp =
-                    // There isn't already a specified accessor for this prop
-                    propInfo[accessor] === undefined
-                    // There isn't already a data prop by this name
-                    && propInfo.data === undefined
-                    // The only existing prop by this name is a reversed accessor
-                    && propInfo[reversed] !== undefined;
-            }
-            if (!isValidDuplicateProp) {
-                throwError(key, Messages.IllegalDuplicateClassProperty);
-            }
-        } else {
-            propInfo = {
-                get: undefined,
-                set: undefined,
-                data: undefined
-            };
-            propMap.set(name, propInfo);
-        }
-        propInfo[accessor] = true;
+    // 14.3 Method Definitions
+    // 14.3.7
+    function specialMethod(methodDefinition) {
+        return methodDefinition.kind === 'get' ||
+               methodDefinition.kind === 'set' ||
+               methodDefinition.value.generator;
     }
 
-    function parseMethodDefinition(existingPropNames, key, isStatic, generator, computed) {
+    function parseMethodDefinition(key, isStatic, generator, computed) {
         var token, param, propType, isValidDuplicateProp = false,
             isAsync, typeParameters, tokenValue, returnType,
             annotationMarker, propMap;
 
         propType = isStatic ? ClassPropertyType.static : ClassPropertyType.prototype;
-
-        propMap = existingPropNames[propType];
 
         if (generator) {
             return delegate.createMethodDefinition(
@@ -6074,12 +6046,6 @@ parseYieldExpression: true, parseAwaitExpression: true
         if (tokenValue === 'get' && !match('(')) {
             key = parseObjectPropertyKey();
 
-            // It is a syntax error if any other properties have a name
-            // duplicating this one unless they are a setter
-            if (!computed) {
-                validateDuplicateProp(propMap, key, 'get');
-            }
-
             expect('(');
             expect(')');
             if (match(':')) {
@@ -6095,12 +6061,6 @@ parseYieldExpression: true, parseAwaitExpression: true
         }
         if (tokenValue === 'set' && !match('(')) {
             key = parseObjectPropertyKey();
-
-            // It is a syntax error if any other properties have a name
-            // duplicating this one unless they are a getter
-            if (!computed) {
-                validateDuplicateProp(propMap, key, 'set');
-            }
 
             expect('(');
             token = lookahead;
@@ -6132,12 +6092,6 @@ parseYieldExpression: true, parseAwaitExpression: true
             key = parseObjectPropertyKey();
         }
 
-        // It is a syntax error if any other properties have the same name as a
-        // non-getter, non-setter method
-        if (!computed) {
-            validateDuplicateProp(propMap, key, 'data');
-        }
-
         return delegate.createMethodDefinition(
             propType,
             '',
@@ -6151,7 +6105,7 @@ parseYieldExpression: true, parseAwaitExpression: true
         );
     }
 
-    function parseClassProperty(existingPropNames, key, computed, isStatic) {
+    function parseClassProperty(key, computed, isStatic) {
         var typeAnnotation;
 
         typeAnnotation = parseTypeAnnotation();
@@ -6165,7 +6119,7 @@ parseYieldExpression: true, parseAwaitExpression: true
         );
     }
 
-    function parseClassElement(existingProps) {
+    function parseClassElement() {
         var computed = false, generator = false, key, marker = markerCreate(),
             isStatic = false, possiblyOpenBracketToken;
         if (match(';')) {
@@ -6196,11 +6150,10 @@ parseYieldExpression: true, parseAwaitExpression: true
         key = parseObjectPropertyKey();
 
         if (!generator && lookahead.value === ':') {
-            return markerApply(marker, parseClassProperty(existingProps, key, computed, isStatic));
+            return markerApply(marker, parseClassProperty(key, computed, isStatic));
         }
 
         return markerApply(marker, parseMethodDefinition(
-            existingProps,
             key,
             isStatic,
             generator,
@@ -6209,9 +6162,10 @@ parseYieldExpression: true, parseAwaitExpression: true
     }
 
     function parseClassBody() {
-        var classElement, classElements = [], existingProps = {}, marker = markerCreate();
+        var classElement, classElements = [], existingProps = {},
+            marker = markerCreate(), propName, propType;
 
-        existingProps[ClassPropertyType.static] = new StringMap();
+        existingProps[ClassPropertyType['static']] = new StringMap();
         existingProps[ClassPropertyType.prototype] = new StringMap();
 
         expect('{');
@@ -6224,6 +6178,23 @@ parseYieldExpression: true, parseAwaitExpression: true
 
             if (typeof classElement !== 'undefined') {
                 classElements.push(classElement);
+
+                propName = !classElement.computed && getFieldName(classElement.key);
+                if (propName !== false) {
+                    propType = classElement['static'] ?
+                                ClassPropertyType['static'] :
+                                ClassPropertyType.prototype;
+
+                    if (propName === 'constructor' && !classElement['static']) {
+                        if (specialMethod(classElement)) {
+                            throwError(classElement, Messages.IllegalClassConstructorProperty);
+                        }
+                        if (existingProps[ClassPropertyType.prototype].has('constructor')) {
+                            throwError(classElement.key, Messages.IllegalDuplicateClassProperty);
+                        }
+                    }
+                    existingProps[propType].set(propName, true);
+                }
             }
         }
 
