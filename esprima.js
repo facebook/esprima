@@ -278,6 +278,7 @@ parseYieldExpression: true, parseAwaitExpression: true
         IllegalContinue: 'Illegal continue statement',
         IllegalBreak: 'Illegal break statement',
         IllegalDuplicateClassProperty: 'Illegal duplicate property in class definition',
+        IllegalClassConstructorProperty: 'Illegal constructor property in class definition',
         IllegalReturn: 'Illegal return statement',
         IllegalSpread: 'Illegal spread element',
         StrictModeWith:  'Strict mode code may not include a with statement',
@@ -492,69 +493,134 @@ parseYieldExpression: true, parseAwaitExpression: true
 
     // 7.4 Comments
 
-    function skipComment() {
-        var ch, blockComment, lineComment;
+    function addComment(type, value, start, end, loc) {
+        var comment;
+        assert(typeof start === 'number', 'Comment must have valid position');
 
-        blockComment = false;
-        lineComment = false;
+        // Because the way the actual token is scanned, often the comments
+        // (if any) are skipped twice during the lexical analysis.
+        // Thus, we need to skip adding a comment if the comment array already
+        // handled it.
+        if (state.lastCommentStart >= start) {
+            return;
+        }
+        state.lastCommentStart = start;
+
+        comment = {
+            type: type,
+            value: value
+        };
+        if (extra.range) {
+            comment.range = [start, end];
+        }
+        if (extra.loc) {
+            comment.loc = loc;
+        }
+        extra.comments.push(comment);
+        if (extra.attachComment) {
+            extra.leadingComments.push(comment);
+            extra.trailingComments.push(comment);
+        }
+    }
+
+    function skipSingleLineComment() {
+        var start, loc, ch, comment;
+
+        start = index - 2;
+        loc = {
+            start: {
+                line: lineNumber,
+                column: index - lineStart - 2
+            }
+        };
+
+        while (index < length) {
+            ch = source.charCodeAt(index);
+            ++index;
+            if (isLineTerminator(ch)) {
+                if (extra.comments) {
+                    comment = source.slice(start + 2, index - 1);
+                    loc.end = {
+                        line: lineNumber,
+                        column: index - lineStart - 1
+                    };
+                    addComment('Line', comment, start, index - 1, loc);
+                }
+                if (ch === 13 && source.charCodeAt(index) === 10) {
+                    ++index;
+                }
+                ++lineNumber;
+                lineStart = index;
+                return;
+            }
+        }
+
+        if (extra.comments) {
+            comment = source.slice(start + 2, index);
+            loc.end = {
+                line: lineNumber,
+                column: index - lineStart
+            };
+            addComment('Line', comment, start, index, loc);
+        }
+    }
+
+    function skipMultiLineComment() {
+        var start, loc, ch, comment;
+
+        if (extra.comments) {
+            start = index - 2;
+            loc = {
+                start: {
+                    line: lineNumber,
+                    column: index - lineStart - 2
+                }
+            };
+        }
+
+        while (index < length) {
+            ch = source.charCodeAt(index);
+            if (isLineTerminator(ch)) {
+                if (ch === 13 && source.charCodeAt(index + 1) === 10) {
+                    ++index;
+                }
+                ++lineNumber;
+                ++index;
+                lineStart = index;
+                if (index >= length) {
+                    throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
+                }
+            } else if (ch === 42) {
+                // Block comment ends with '*/' (char #42, char #47).
+                if (source.charCodeAt(index + 1) === 47) {
+                    ++index;
+                    ++index;
+                    if (extra.comments) {
+                        comment = source.slice(start + 2, index - 2);
+                        loc.end = {
+                            line: lineNumber,
+                            column: index - lineStart
+                        };
+                        addComment('Block', comment, start, index, loc);
+                    }
+                    return;
+                }
+                ++index;
+            } else {
+                ++index;
+            }
+        }
+
+        throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
+    }
+
+    function skipComment() {
+        var ch;
 
         while (index < length) {
             ch = source.charCodeAt(index);
 
-            if (lineComment) {
-                ++index;
-                if (isLineTerminator(ch)) {
-                    lineComment = false;
-                    if (ch === 13 && source.charCodeAt(index) === 10) {
-                        ++index;
-                    }
-                    ++lineNumber;
-                    lineStart = index;
-                }
-            } else if (blockComment) {
-                if (isLineTerminator(ch)) {
-                    if (ch === 13) {
-                        ++index;
-                    }
-                    if (ch !== 13 || source.charCodeAt(index) === 10) {
-                        ++lineNumber;
-                        ++index;
-                        lineStart = index;
-                        if (index >= length) {
-                            throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
-                        }
-                    }
-                } else {
-                    ch = source.charCodeAt(index++);
-                    if (index >= length) {
-                        throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
-                    }
-                    // Block comment ends with '*/' (char #42, char #47).
-                    if (ch === 42) {
-                        ch = source.charCodeAt(index);
-                        if (ch === 47) {
-                            ++index;
-                            blockComment = false;
-                        }
-                    }
-                }
-            } else if (ch === 47) {
-                ch = source.charCodeAt(index + 1);
-                // Line comment starts with '//' (char #47, char #47).
-                if (ch === 47) {
-                    index += 2;
-                    lineComment = true;
-                } else if (ch === 42) {
-                    // Block comment starts with '/*' (char #47, char #42).
-                    index += 2;
-                    blockComment = true;
-                    if (index >= length) {
-                        throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
-                    }
-                } else {
-                    break;
-                }
-            } else if (isWhiteSpace(ch)) {
+            if (isWhiteSpace(ch)) {
                 ++index;
             } else if (isLineTerminator(ch)) {
                 ++index;
@@ -563,6 +629,19 @@ parseYieldExpression: true, parseAwaitExpression: true
                 }
                 ++lineNumber;
                 lineStart = index;
+            } else if (ch === 47) { // 47 is '/'
+                ch = source.charCodeAt(index + 1);
+                if (ch === 47) {
+                    ++index;
+                    ++index;
+                    skipSingleLineComment();
+                } else if (ch === 42) {  // 42 is '*'
+                    ++index;
+                    ++index;
+                    skipMultiLineComment();
+                } else {
+                    break;
+                }
             } else {
                 break;
             }
@@ -1567,7 +1646,7 @@ parseYieldExpression: true, parseAwaitExpression: true
             }
             return scanRegExp();
         }
-        if (prevToken.type === 'Keyword') {
+        if (prevToken.type === 'Keyword' && prevToken.value !== 'this') {
             return scanRegExp();
         }
         return scanPunctuator();
@@ -5986,54 +6065,25 @@ parseYieldExpression: true, parseAwaitExpression: true
         return markerApply(marker, delegate.createAwaitExpression(expr));
     }
 
-    // 14 Classes
+    // 14 Functions and classes
 
-    function validateDuplicateProp(propMap, key, accessor) {
-        var propInfo, reversed, name, isValidDuplicateProp;
+    // 14.1 Functions is defined above (13 in ES5)
+    // 14.2 Arrow Functions Definitions is defined in (7.3 assignments)
 
-        name = getFieldName(key);
-
-        if (propMap.has(name)) {
-            propInfo = propMap.get(name);
-            if (accessor === 'data') {
-                isValidDuplicateProp = false;
-            } else {
-                if (accessor === 'get') {
-                    reversed = 'set';
-                } else {
-                    reversed = 'get';
-                }
-
-                isValidDuplicateProp =
-                    // There isn't already a specified accessor for this prop
-                    propInfo[accessor] === undefined
-                    // There isn't already a data prop by this name
-                    && propInfo.data === undefined
-                    // The only existing prop by this name is a reversed accessor
-                    && propInfo[reversed] !== undefined;
-            }
-            if (!isValidDuplicateProp) {
-                throwError(key, Messages.IllegalDuplicateClassProperty);
-            }
-        } else {
-            propInfo = {
-                get: undefined,
-                set: undefined,
-                data: undefined
-            };
-            propMap.set(name, propInfo);
-        }
-        propInfo[accessor] = true;
+    // 14.3 Method Definitions
+    // 14.3.7
+    function specialMethod(methodDefinition) {
+        return methodDefinition.kind === 'get' ||
+               methodDefinition.kind === 'set' ||
+               methodDefinition.value.generator;
     }
 
-    function parseMethodDefinition(existingPropNames, key, isStatic, generator, computed) {
+    function parseMethodDefinition(key, isStatic, generator, computed) {
         var token, param, propType, isValidDuplicateProp = false,
             isAsync, typeParameters, tokenValue, returnType,
             annotationMarker, propMap;
 
         propType = isStatic ? ClassPropertyType.static : ClassPropertyType.prototype;
-
-        propMap = existingPropNames[propType];
 
         if (generator) {
             return delegate.createMethodDefinition(
@@ -6050,12 +6100,6 @@ parseYieldExpression: true, parseAwaitExpression: true
         if (tokenValue === 'get' && !match('(')) {
             key = parseObjectPropertyKey();
 
-            // It is a syntax error if any other properties have a name
-            // duplicating this one unless they are a setter
-            if (!computed) {
-                validateDuplicateProp(propMap, key, 'get');
-            }
-
             expect('(');
             expect(')');
             if (match(':')) {
@@ -6071,12 +6115,6 @@ parseYieldExpression: true, parseAwaitExpression: true
         }
         if (tokenValue === 'set' && !match('(')) {
             key = parseObjectPropertyKey();
-
-            // It is a syntax error if any other properties have a name
-            // duplicating this one unless they are a getter
-            if (!computed) {
-                validateDuplicateProp(propMap, key, 'set');
-            }
 
             expect('(');
             token = lookahead;
@@ -6108,12 +6146,6 @@ parseYieldExpression: true, parseAwaitExpression: true
             key = parseObjectPropertyKey();
         }
 
-        // It is a syntax error if any other properties have the same name as a
-        // non-getter, non-setter method
-        if (!computed) {
-            validateDuplicateProp(propMap, key, 'data');
-        }
-
         return delegate.createMethodDefinition(
             propType,
             '',
@@ -6127,7 +6159,7 @@ parseYieldExpression: true, parseAwaitExpression: true
         );
     }
 
-    function parseClassProperty(existingPropNames, key, computed, isStatic) {
+    function parseClassProperty(key, computed, isStatic) {
         var typeAnnotation;
 
         typeAnnotation = parseTypeAnnotation();
@@ -6141,7 +6173,7 @@ parseYieldExpression: true, parseAwaitExpression: true
         );
     }
 
-    function parseClassElement(existingProps) {
+    function parseClassElement() {
         var computed = false, generator = false, key, marker = markerCreate(),
             isStatic = false, possiblyOpenBracketToken;
         if (match(';')) {
@@ -6172,11 +6204,10 @@ parseYieldExpression: true, parseAwaitExpression: true
         key = parseObjectPropertyKey();
 
         if (!generator && lookahead.value === ':') {
-            return markerApply(marker, parseClassProperty(existingProps, key, computed, isStatic));
+            return markerApply(marker, parseClassProperty(key, computed, isStatic));
         }
 
         return markerApply(marker, parseMethodDefinition(
-            existingProps,
             key,
             isStatic,
             generator,
@@ -6185,9 +6216,10 @@ parseYieldExpression: true, parseAwaitExpression: true
     }
 
     function parseClassBody() {
-        var classElement, classElements = [], existingProps = {}, marker = markerCreate();
+        var classElement, classElements = [], existingProps = {},
+            marker = markerCreate(), propName, propType;
 
-        existingProps[ClassPropertyType.static] = new StringMap();
+        existingProps[ClassPropertyType['static']] = new StringMap();
         existingProps[ClassPropertyType.prototype] = new StringMap();
 
         expect('{');
@@ -6200,6 +6232,23 @@ parseYieldExpression: true, parseAwaitExpression: true
 
             if (typeof classElement !== 'undefined') {
                 classElements.push(classElement);
+
+                propName = !classElement.computed && getFieldName(classElement.key);
+                if (propName !== false) {
+                    propType = classElement['static'] ?
+                                ClassPropertyType['static'] :
+                                ClassPropertyType.prototype;
+
+                    if (propName === 'constructor' && !classElement['static']) {
+                        if (specialMethod(classElement)) {
+                            throwError(classElement, Messages.IllegalClassConstructorProperty);
+                        }
+                        if (existingProps[ClassPropertyType.prototype].has('constructor')) {
+                            throwError(classElement.key, Messages.IllegalDuplicateClassProperty);
+                        }
+                    }
+                    existingProps[propType].set(propName, true);
+                }
             }
         }
 
@@ -6435,163 +6484,6 @@ parseYieldExpression: true, parseAwaitExpression: true
         peek();
         body = parseProgramElements();
         return markerApply(marker, delegate.createProgram(body));
-    }
-
-    // The following functions are needed only when the option to preserve
-    // the comments is active.
-
-    function addComment(type, value, start, end, loc) {
-        var comment;
-
-        assert(typeof start === 'number', 'Comment must have valid position');
-
-        // Because the way the actual token is scanned, often the comments
-        // (if any) are skipped twice during the lexical analysis.
-        // Thus, we need to skip adding a comment if the comment array already
-        // handled it.
-        if (state.lastCommentStart >= start) {
-            return;
-        }
-        state.lastCommentStart = start;
-
-        comment = {
-            type: type,
-            value: value
-        };
-        if (extra.range) {
-            comment.range = [start, end];
-        }
-        if (extra.loc) {
-            comment.loc = loc;
-        }
-        extra.comments.push(comment);
-        if (extra.attachComment) {
-            extra.leadingComments.push(comment);
-            extra.trailingComments.push(comment);
-        }
-    }
-
-    function scanComment() {
-        var comment, ch, loc, start, blockComment, lineComment;
-
-        comment = '';
-        blockComment = false;
-        lineComment = false;
-
-        while (index < length) {
-            ch = source[index];
-
-            if (lineComment) {
-                ch = source[index++];
-                if (isLineTerminator(ch.charCodeAt(0))) {
-                    loc.end = {
-                        line: lineNumber,
-                        column: index - lineStart - 1
-                    };
-                    lineComment = false;
-                    addComment('Line', comment, start, index - 1, loc);
-                    if (ch === '\r' && source[index] === '\n') {
-                        ++index;
-                    }
-                    ++lineNumber;
-                    lineStart = index;
-                    comment = '';
-                } else if (index >= length) {
-                    lineComment = false;
-                    comment += ch;
-                    loc.end = {
-                        line: lineNumber,
-                        column: length - lineStart
-                    };
-                    addComment('Line', comment, start, length, loc);
-                } else {
-                    comment += ch;
-                }
-            } else if (blockComment) {
-                if (isLineTerminator(ch.charCodeAt(0))) {
-                    if (ch === '\r') {
-                        ++index;
-                        comment += '\r';
-                    }
-                    if (ch !== '\r' || source[index] === '\n') {
-                        comment += source[index];
-                        ++lineNumber;
-                        ++index;
-                        lineStart = index;
-                        if (index >= length) {
-                            throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
-                        }
-                    }
-                } else {
-                    ch = source[index++];
-                    if (index >= length) {
-                        throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
-                    }
-                    comment += ch;
-                    if (ch === '*') {
-                        ch = source[index];
-                        if (ch === '/') {
-                            comment = comment.substr(0, comment.length - 1);
-                            blockComment = false;
-                            ++index;
-                            loc.end = {
-                                line: lineNumber,
-                                column: index - lineStart
-                            };
-                            addComment('Block', comment, start, index, loc);
-                            comment = '';
-                        }
-                    }
-                }
-            } else if (ch === '/') {
-                ch = source[index + 1];
-                if (ch === '/') {
-                    loc = {
-                        start: {
-                            line: lineNumber,
-                            column: index - lineStart
-                        }
-                    };
-                    start = index;
-                    index += 2;
-                    lineComment = true;
-                    if (index >= length) {
-                        loc.end = {
-                            line: lineNumber,
-                            column: index - lineStart
-                        };
-                        lineComment = false;
-                        addComment('Line', comment, start, index, loc);
-                    }
-                } else if (ch === '*') {
-                    start = index;
-                    index += 2;
-                    blockComment = true;
-                    loc = {
-                        start: {
-                            line: lineNumber,
-                            column: index - lineStart - 2
-                        }
-                    };
-                    if (index >= length) {
-                        throwError({}, Messages.UnexpectedToken, 'ILLEGAL');
-                    }
-                } else {
-                    break;
-                }
-            } else if (isWhiteSpace(ch.charCodeAt(0))) {
-                ++index;
-            } else if (isLineTerminator(ch.charCodeAt(0))) {
-                ++index;
-                if (ch ===  '\r' && source[index] === '\n') {
-                    ++index;
-                }
-                ++lineNumber;
-                lineStart = index;
-            } else {
-                break;
-            }
-        }
     }
 
     // 16 XJS
@@ -7557,11 +7449,6 @@ parseYieldExpression: true, parseAwaitExpression: true
     }
 
     function patch() {
-        if (extra.comments) {
-            extra.skipComment = skipComment;
-            skipComment = scanComment;
-        }
-
         if (typeof extra.tokens !== 'undefined') {
             extra.advance = advance;
             extra.scanRegExp = scanRegExp;
@@ -7572,10 +7459,6 @@ parseYieldExpression: true, parseAwaitExpression: true
     }
 
     function unpatch() {
-        if (typeof extra.skipComment === 'function') {
-            skipComment = extra.skipComment;
-        }
-
         if (typeof extra.scanRegExp === 'function') {
             advance = extra.advance;
             scanRegExp = extra.scanRegExp;

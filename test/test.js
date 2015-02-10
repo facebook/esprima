@@ -3866,14 +3866,14 @@ var testFixture = {
                     raw: '42',
                     range: [8, 10],
                     loc: {
-                        start: { line: 1, column: 8 },
-                        end: { line: 1, column: 10 }
+                        start: { line: 2, column: 4 },
+                        end: { line: 2, column: 6 }
                     }
                 },
                 range: [8, 10],
                 loc: {
-                    start: { line: 1, column: 8 },
-                    end: { line: 1, column: 10 }
+                    start: { line: 2, column: 4 },
+                    end: { line: 2, column: 6 }
                 },
                 leadingComments: [{
                     type: 'Block',
@@ -3881,14 +3881,14 @@ var testFixture = {
                     range: [0, 7],
                     loc: {
                         start: { line: 1, column: 0 },
-                        end: { line: 1, column: 7 }
+                        end: { line: 2, column: 3 }
                     }
                 }]
             }],
             range: [8, 10],
             loc: {
-                start: { line: 1, column: 8 },
-                end: { line: 1, column: 10 }
+                start: { line: 2, column: 4 },
+                end: { line: 2, column: 6 }
             },
             comments: [{
                 type: 'Block',
@@ -3896,10 +3896,11 @@ var testFixture = {
                 range: [0, 7],
                 loc: {
                     start: { line: 1, column: 0 },
-                    end: { line: 1, column: 7 }
+                    end: { line: 2, column: 3 }
                 }
             }]
         },
+
 
         '/*a\nb*/ 42': {
             type: 'Program',
@@ -19984,8 +19985,82 @@ var testFixture = {
             lineNumber: 1,
             column: 8,
             message: 'Error: Line 1: Invalid regular expression: missing /'
-        }
+        },
 
+        'this / 100;': [
+          {
+            "type": "Keyword",
+            "value": "this",
+            "range": [
+              0,
+              4
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 0
+              },
+              "end": {
+                "line": 1,
+                "column": 4
+              }
+            }
+          },
+          {
+            "type": "Punctuator",
+            "value": "/",
+            "range": [
+              5,
+              6
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 5
+              },
+              "end": {
+                "line": 1,
+                "column": 6
+              }
+            }
+          },
+          {
+            "type": "Numeric",
+            "value": "100",
+            "range": [
+              7,
+              10
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 7
+              },
+              "end": {
+                "line": 1,
+                "column": 10
+              }
+            }
+          },
+          {
+            "type": "Punctuator",
+            "value": ";",
+            "range": [
+              10,
+              11
+            ],
+            "loc": {
+              "start": {
+                "line": 1,
+                "column": 10
+              },
+              "end": {
+                "line": 1,
+                "column": 11
+              }
+            }
+          }
+        ]
     },
 
     'API': {
