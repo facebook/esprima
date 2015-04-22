@@ -141,6 +141,7 @@ module.exports = {
         'class Foo { "bar"<T>() { } }',
         'function foo(requiredParam, optParam?) {}',
         'class Foo { prop1:string; prop2:number; }',
+        'class Foo { prop1:string= "bar"; prop2:number = a + b; }',
         'class Foo { static prop1:string; prop2:number; }',
         'var x : number | string = 4;',
         'class Array { concat(items:number | string) {}; }',
