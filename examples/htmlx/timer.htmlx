@@ -1,0 +1,18 @@
+<ReactClass name="Timer">  
+  <div>Seconds Elapsed: {secondsElapsed}</div>  
+  <script>
+    var secondsElapsed = 0;
+    
+    function tick(){
+      this.setState({secondsElapsed: secondsElapsed + 1});
+    }        
+    function componentDidMount() {
+      this.interval = setInterval(this.tick, 1000);
+    }    
+    function componentWillUnmount() {
+      clearInterval(this.interval);
+    }  
+  </script>
+</ReactClass>
+
+React.render(<Timer />, mountNode);

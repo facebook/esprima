@@ -209,6 +209,7 @@
         JSXMemberExpression: 'JSXMemberExpression',
         JSXEmptyExpression: 'JSXEmptyExpression',
         JSXExpressionContainer: 'JSXExpressionContainer',
+        JSXModuleContainer: 'JSXModuleContainer',
         JSXElement: 'JSXElement',
         JSXClosingElement: 'JSXClosingElement',
         JSXOpeningElement: 'JSXOpeningElement',
@@ -287,6 +288,8 @@
         EachNotAllowed: 'Each is not supported',
         InvalidJSXAttributeValue: 'JSX value should be either an expression or a quoted JSX text',
         ExpectedJSXClosingTag: 'Expected corresponding JSX closing tag for %0',
+        InvalidJSXModuleName: 'Invalid JSX Module Name',
+        ExpectedChildrenForJSXModule: 'JSX Module must to have children for render',
         AdjacentJSXElements: 'Adjacent JSX elements must be wrapped in an enclosing tag',
         ConfusedAboutFunctionType: 'Unexpected token =>. It looks like ' +
             'you are trying to write a function type, but you ended up ' +
@@ -2377,6 +2380,14 @@
         createJSXEmptyExpression: function () {
             return {
                 type: Syntax.JSXEmptyExpression
+            };
+        },
+
+        createJSXModuleContainer: function (element, body) {
+            return {
+                type: Syntax.JSXModuleContainer,
+                element: element,
+                body: body
             };
         },
 
@@ -5717,6 +5728,9 @@
 
         consumeSemicolon();
 
+        if (extra.JSXModule && expr.type === Syntax.JSXElement) {
+            return statementForJSXElement(marker, expr);
+        }
         return markerApply(marker, delegate.createExpressionStatement(expr));
     }
 
@@ -7045,6 +7059,16 @@
         return markerApply(marker, delegate.createJSXEmptyExpression());
     }
 
+    function statementForJSXElement(marker, expression) {
+        if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(expression.openingElement.name.name)) {
+            throwError({}, Messages.InvalidJSXModuleName);
+        }
+        if (!expression.children.length) {
+            throwError({}, Messages.ExpectedChildrenForJSXModule);
+        }
+        return markerApply(marker, delegate.createJSXModuleContainer(expression));
+    }
+
     function parseJSXExpressionContainer() {
         var expression, origInJSXChild, origInJSXTag, marker = markerCreate();
 
@@ -7705,6 +7729,9 @@
                 extra.bottomRightStack = [];
                 extra.trailingComments = [];
                 extra.leadingComments = [];
+            }
+            if (typeof options.JSXModule === 'boolean' && options.JSXModule) {
+                extra.JSXModule = true;
             }
         }
 

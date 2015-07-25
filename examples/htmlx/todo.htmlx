@@ -1,0 +1,32 @@
+<ReactClass name="TodoList">
+  <ul>
+    {items.map((itemText, index)=>
+    <li key={index + itemText}>{itemText}</li>
+    )}
+  </ul>
+</ReactClass>
+<ReactClass name="TodoApp">
+  <div>
+    <h3>TODO</h3>
+    <TodoList items={items} />
+    <form onSubmit="handleSubmit">
+      <input onChange="onChange" value={text} />
+      <button>{'Add #' + (items.length + 1)}</button>
+    </form>
+  </div>
+  <script>
+    var items= [];
+    var text= '';    
+    function onChange(e) {
+      text = e.target.value;
+    }
+    function handleSubmit(e) {
+      e.preventDefault();
+      var nextItems = items.concat([text]);
+      var nextText = '';
+      this.setState({items: nextItems, text: nextText});
+    }
+  </script>
+</ReactClass>
+
+React.render(<TodoApp />, mountNode);

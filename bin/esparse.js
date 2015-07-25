@@ -60,6 +60,7 @@ function showUsage() {
     console.log('  --raw          Display the raw value of literals');
     console.log('  --tokens       List all tokens in an array');
     console.log('  --tolerant     Tolerate errors on a best-effort basis (experimental)');
+    console.log('  --JSXModule    Parse as JSXModule file');
     console.log('  -v, --version  Shows program version');
     console.log();
     process.exit(1);
@@ -91,6 +92,9 @@ process.argv.splice(2).forEach(function (entry) {
         options.tokens = true;
     } else if (entry === '--tolerant') {
         options.tolerant = true;
+    } else if (entry === '--JSXModule') {
+        options.module = true;
+        options.JSXModule = true;
     } else if (entry.slice(0, 2) === '--') {
         console.log('Error: unknown option ' + entry + '.');
         process.exit(1);

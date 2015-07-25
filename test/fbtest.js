@@ -27,6 +27,14 @@
 /* jscs:disable disallowTrailingComma */
 
 module.exports = {
+    'JSXModule': [
+      '<Module><div>A</div></Module>'
+    ],
+    'Invalid JSXModule Syntax': [
+      '<module></module>',
+      '<Module></Module>',
+      '<module><div>A</div></module>',
+    ],
     'JSX': [
         '<a />',
         '<n:a n:v />',

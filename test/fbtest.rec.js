@@ -4,10 +4,144 @@
 * tests/fbtest.js and run tools/generate-fbtest.js
 */
 
-var numTests = 227
+var numTests = 231
 var testFixture;
 
 var fbTestFixture = {
+    'JSXModule': {
+        '<Module><div>A</div></Module>': {
+            type: 'JSXModuleContainer',
+            element: {
+                type: 'JSXElement',
+                openingElement: {
+                    type: 'JSXOpeningElement',
+                    name: {
+                        type: 'JSXIdentifier',
+                        name: 'Module',
+                        range: [1, 7],
+                        loc: {
+                            start: { line: 1, column: 1 },
+                            end: { line: 1, column: 7 }
+                        }
+                    },
+                    selfClosing: false,
+                    attributes: [],
+                    range: [0, 8],
+                    loc: {
+                        start: { line: 1, column: 0 },
+                        end: { line: 1, column: 8 }
+                    }
+                },
+                closingElement: {
+                    type: 'JSXClosingElement',
+                    name: {
+                        type: 'JSXIdentifier',
+                        name: 'Module',
+                        range: [22, 28],
+                        loc: {
+                            start: { line: 1, column: 22 },
+                            end: { line: 1, column: 28 }
+                        }
+                    },
+                    range: [20, 29],
+                    loc: {
+                        start: { line: 1, column: 20 },
+                        end: { line: 1, column: 29 }
+                    }
+                },
+                children: [{
+                    type: 'JSXElement',
+                    openingElement: {
+                        type: 'JSXOpeningElement',
+                        name: {
+                            type: 'JSXIdentifier',
+                            name: 'div',
+                            range: [9, 12],
+                            loc: {
+                                start: { line: 1, column: 9 },
+                                end: { line: 1, column: 12 }
+                            }
+                        },
+                        selfClosing: false,
+                        attributes: [],
+                        range: [8, 13],
+                        loc: {
+                            start: { line: 1, column: 8 },
+                            end: { line: 1, column: 13 }
+                        }
+                    },
+                    closingElement: {
+                        type: 'JSXClosingElement',
+                        name: {
+                            type: 'JSXIdentifier',
+                            name: 'div',
+                            range: [16, 19],
+                            loc: {
+                                start: { line: 1, column: 16 },
+                                end: { line: 1, column: 19 }
+                            }
+                        },
+                        range: [14, 20],
+                        loc: {
+                            start: { line: 1, column: 14 },
+                            end: { line: 1, column: 20 }
+                        }
+                    },
+                    children: [{
+                        type: 'Literal',
+                        value: 'A',
+                        raw: 'A',
+                        range: [13, 14],
+                        loc: {
+                            start: { line: 1, column: 13 },
+                            end: { line: 1, column: 14 }
+                        }
+                    }],
+                    range: [8, 20],
+                    loc: {
+                        start: { line: 1, column: 8 },
+                        end: { line: 1, column: 20 }
+                    }
+                }],
+                range: [0, 29],
+                loc: {
+                    start: { line: 1, column: 0 },
+                    end: { line: 1, column: 29 }
+                }
+            },
+            range: [0, 29],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 29 }
+            }
+        },
+    },
+    'Invalid JSXModule Syntax': {
+        '<module></module>': {
+            index: 17,
+            lineNumber: 1,
+            column: 18,
+            message: 'Error: Line 1: Invalid JSX Module Name',
+            description: 'Invalid JSX Module Name'
+
+        },
+        '<Module></Module>': {
+            index: 17,
+            lineNumber: 1,
+            column: 18,
+            message: 'Error: Line 1: JSX Module must to have children for render',
+            description: 'JSX Module must to have children for render'
+
+        },
+        '<module><div>A</div></module>': {
+            index: 29,
+            lineNumber: 1,
+            column: 30,
+            message: 'Error: Line 1: Invalid JSX Module Name',
+            description: 'Invalid JSX Module Name'
+
+        },
+    },
     'JSX': {
         '<a />': {
             type: 'ExpressionStatement',
@@ -14407,7 +14541,7 @@ var fbTestFixture = {
                 throw new Error('FB test should not replace existing test for ' + i);
             }
             testFixture[i] = fixtures;
-            testFixtureOptions[i] = {sourceType: 'module'};
+            testFixtureOptions[i] = {sourceType: 'module', JSXModule: /JSXModule/.test(i)};
 
             if (/( \(module and script\)$)/.test(i)) {
               testFixture[i + ' (non-module)'] = fixtures;
