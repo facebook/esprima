@@ -124,8 +124,7 @@ function testParse(esprima, code, syntax, testOptions) {
         raw: true,
         tolerant: (typeof syntax.errors !== 'undefined'),
         source: null,
-        sourceType: testOptions.sourceType,
-        JSXModule: testOptions.JSXModule
+        sourceType: testOptions.sourceType
     };
 
     if (options.comment) {
@@ -226,8 +225,7 @@ function testTokenize(esprima, code, tokens, testOptions) {
         tolerant: true,
         loc: true,
         range: true,
-        sourceType: testOptions.sourceType,
-        JSXModule: testOptions.JSXModule
+        sourceType: testOptions.sourceType
     };
 
     expected = JSON.stringify(tokens, null, 4);
@@ -245,19 +243,16 @@ function testTokenize(esprima, code, tokens, testOptions) {
 
 function testError(esprima, code, exception, testOptions) {
     'use strict';
-    var i, options, expected, actual, err, handleInvalidRegexFlag, tokenize;
+    var i, options, expected, actual, err, handleInvalidRegexFlag, tokenize,
+        sourceType;
 
     // Different parsing options should give the same error.
     options = [
-        { },
-        { comment: true },
-        { raw: true },
-        { raw: true, comment: true }
+        { sourceType: testOptions.sourceType },
+        { sourceType: testOptions.sourceType, comment: true },
+        { sourceType: testOptions.sourceType, raw: true },
+        { sourceType: testOptions.sourceType, raw: true, comment: true }
     ];
-    options.forEach(function(option){
-      option.sourceType = testOptions.sourceType;
-      option.JSXModule = testOptions.JSXModule;
-    });
 
     // If handleInvalidRegexFlag is true, an invalid flag in a regular expression
     // will throw an exception. In some old version of V8, this is not the case

@@ -1,3 +1,5 @@
+<!DOCTYPE JSX>
+
 <ReactClass name="HelloMessage">
   <div>Hello {this.props.name}</div>
 </ReactClass>

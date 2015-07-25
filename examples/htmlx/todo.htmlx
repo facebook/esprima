@@ -1,16 +1,19 @@
+<!DOCTYPE JSX>
+
 <ReactClass name="TodoList">
   <ul>
     {items.map((itemText, index)=>
-    <li key={index + itemText}>{itemText}</li>
+      <li key={index + itemText}>{itemText}</li>
     )}
   </ul>
 </ReactClass>
+
 <ReactClass name="TodoApp">
   <div>
     <h3>TODO</h3>
     <TodoList items={items} />
-    <form onSubmit="handleSubmit">
-      <input onChange="onChange" value={text} />
+    <form onSubmit={handleSubmit}>
+      <input onChange={onChange} value={text} />
       <button>{'Add #' + (items.length + 1)}</button>
     </form>
   </div>

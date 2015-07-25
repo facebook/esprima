@@ -4,12 +4,12 @@
 * tests/fbtest.js and run tools/generate-fbtest.js
 */
 
-var numTests = 231
+var numTests = 234
 var testFixture;
 
 var fbTestFixture = {
     'JSXModule': {
-        '<Module><div>A</div></Module>': {
+        '<!DOCTYPE JSX><Module><div>A</div></Module>': {
             type: 'JSXModuleContainer',
             element: {
                 type: 'JSXElement',
@@ -18,18 +18,18 @@ var fbTestFixture = {
                     name: {
                         type: 'JSXIdentifier',
                         name: 'Module',
-                        range: [1, 7],
+                        range: [15, 21],
                         loc: {
-                            start: { line: 1, column: 1 },
-                            end: { line: 1, column: 7 }
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 21 }
                         }
                     },
                     selfClosing: false,
                     attributes: [],
-                    range: [0, 8],
+                    range: [14, 22],
                     loc: {
-                        start: { line: 1, column: 0 },
-                        end: { line: 1, column: 8 }
+                        start: { line: 1, column: 14 },
+                        end: { line: 1, column: 22 }
                     }
                 },
                 closingElement: {
@@ -37,16 +37,16 @@ var fbTestFixture = {
                     name: {
                         type: 'JSXIdentifier',
                         name: 'Module',
-                        range: [22, 28],
+                        range: [36, 42],
                         loc: {
-                            start: { line: 1, column: 22 },
-                            end: { line: 1, column: 28 }
+                            start: { line: 1, column: 36 },
+                            end: { line: 1, column: 42 }
                         }
                     },
-                    range: [20, 29],
+                    range: [34, 43],
                     loc: {
-                        start: { line: 1, column: 20 },
-                        end: { line: 1, column: 29 }
+                        start: { line: 1, column: 34 },
+                        end: { line: 1, column: 43 }
                     }
                 },
                 children: [{
@@ -56,18 +56,18 @@ var fbTestFixture = {
                         name: {
                             type: 'JSXIdentifier',
                             name: 'div',
-                            range: [9, 12],
+                            range: [23, 26],
                             loc: {
-                                start: { line: 1, column: 9 },
-                                end: { line: 1, column: 12 }
+                                start: { line: 1, column: 23 },
+                                end: { line: 1, column: 26 }
                             }
                         },
                         selfClosing: false,
                         attributes: [],
-                        range: [8, 13],
+                        range: [22, 27],
                         loc: {
-                            start: { line: 1, column: 8 },
-                            end: { line: 1, column: 13 }
+                            start: { line: 1, column: 22 },
+                            end: { line: 1, column: 27 }
                         }
                     },
                     closingElement: {
@@ -75,68 +75,190 @@ var fbTestFixture = {
                         name: {
                             type: 'JSXIdentifier',
                             name: 'div',
-                            range: [16, 19],
+                            range: [30, 33],
                             loc: {
-                                start: { line: 1, column: 16 },
-                                end: { line: 1, column: 19 }
+                                start: { line: 1, column: 30 },
+                                end: { line: 1, column: 33 }
                             }
                         },
-                        range: [14, 20],
+                        range: [28, 34],
                         loc: {
-                            start: { line: 1, column: 14 },
-                            end: { line: 1, column: 20 }
+                            start: { line: 1, column: 28 },
+                            end: { line: 1, column: 34 }
                         }
                     },
                     children: [{
                         type: 'Literal',
                         value: 'A',
                         raw: 'A',
-                        range: [13, 14],
+                        range: [27, 28],
                         loc: {
-                            start: { line: 1, column: 13 },
-                            end: { line: 1, column: 14 }
+                            start: { line: 1, column: 27 },
+                            end: { line: 1, column: 28 }
                         }
                     }],
-                    range: [8, 20],
+                    range: [22, 34],
                     loc: {
-                        start: { line: 1, column: 8 },
-                        end: { line: 1, column: 20 }
+                        start: { line: 1, column: 22 },
+                        end: { line: 1, column: 34 }
                     }
                 }],
-                range: [0, 29],
+                range: [14, 43],
                 loc: {
-                    start: { line: 1, column: 0 },
-                    end: { line: 1, column: 29 }
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 43 }
                 }
             },
-            range: [0, 29],
+            range: [14, 43],
             loc: {
-                start: { line: 1, column: 0 },
-                end: { line: 1, column: 29 }
+                start: { line: 1, column: 14 },
+                end: { line: 1, column: 43 }
+            }
+        },
+        '<!DocType Jsx><Module><div>A</div></Module>': {
+            type: 'JSXModuleContainer',
+            element: {
+                type: 'JSXElement',
+                openingElement: {
+                    type: 'JSXOpeningElement',
+                    name: {
+                        type: 'JSXIdentifier',
+                        name: 'Module',
+                        range: [15, 21],
+                        loc: {
+                            start: { line: 1, column: 15 },
+                            end: { line: 1, column: 21 }
+                        }
+                    },
+                    selfClosing: false,
+                    attributes: [],
+                    range: [14, 22],
+                    loc: {
+                        start: { line: 1, column: 14 },
+                        end: { line: 1, column: 22 }
+                    }
+                },
+                closingElement: {
+                    type: 'JSXClosingElement',
+                    name: {
+                        type: 'JSXIdentifier',
+                        name: 'Module',
+                        range: [36, 42],
+                        loc: {
+                            start: { line: 1, column: 36 },
+                            end: { line: 1, column: 42 }
+                        }
+                    },
+                    range: [34, 43],
+                    loc: {
+                        start: { line: 1, column: 34 },
+                        end: { line: 1, column: 43 }
+                    }
+                },
+                children: [{
+                    type: 'JSXElement',
+                    openingElement: {
+                        type: 'JSXOpeningElement',
+                        name: {
+                            type: 'JSXIdentifier',
+                            name: 'div',
+                            range: [23, 26],
+                            loc: {
+                                start: { line: 1, column: 23 },
+                                end: { line: 1, column: 26 }
+                            }
+                        },
+                        selfClosing: false,
+                        attributes: [],
+                        range: [22, 27],
+                        loc: {
+                            start: { line: 1, column: 22 },
+                            end: { line: 1, column: 27 }
+                        }
+                    },
+                    closingElement: {
+                        type: 'JSXClosingElement',
+                        name: {
+                            type: 'JSXIdentifier',
+                            name: 'div',
+                            range: [30, 33],
+                            loc: {
+                                start: { line: 1, column: 30 },
+                                end: { line: 1, column: 33 }
+                            }
+                        },
+                        range: [28, 34],
+                        loc: {
+                            start: { line: 1, column: 28 },
+                            end: { line: 1, column: 34 }
+                        }
+                    },
+                    children: [{
+                        type: 'Literal',
+                        value: 'A',
+                        raw: 'A',
+                        range: [27, 28],
+                        loc: {
+                            start: { line: 1, column: 27 },
+                            end: { line: 1, column: 28 }
+                        }
+                    }],
+                    range: [22, 34],
+                    loc: {
+                        start: { line: 1, column: 22 },
+                        end: { line: 1, column: 34 }
+                    }
+                }],
+                range: [14, 43],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 43 }
+                }
+            },
+            range: [14, 43],
+            loc: {
+                start: { line: 1, column: 14 },
+                end: { line: 1, column: 43 }
             }
         },
     },
     'Invalid JSXModule Syntax': {
-        '<module></module>': {
-            index: 17,
+        '<!TYPE JSX>': {
+            index: 2,
             lineNumber: 1,
-            column: 18,
+            column: 3,
+            message: 'Error: Line 1: Unexpected identifier',
+            description: 'Unexpected identifier'
+
+        },
+        '<!DOCTYPE HTML>': {
+            index: 10,
+            lineNumber: 1,
+            column: 11,
+            message: 'Error: Line 1: Unexpected identifier',
+            description: 'Unexpected identifier'
+
+        },
+        '<!DOCTYPE JSX><module></module>': {
+            index: 31,
+            lineNumber: 1,
+            column: 32,
             message: 'Error: Line 1: Invalid JSX Module Name',
             description: 'Invalid JSX Module Name'
 
         },
-        '<Module></Module>': {
-            index: 17,
+        '<!DOCTYPE JSX><Module></Module>': {
+            index: 31,
             lineNumber: 1,
-            column: 18,
+            column: 32,
             message: 'Error: Line 1: JSX Module must to have children for render',
             description: 'JSX Module must to have children for render'
 
         },
-        '<module><div>A</div></module>': {
-            index: 29,
+        '<!DOCTYPE JSX><module><div>A</div></module>': {
+            index: 43,
             lineNumber: 1,
-            column: 30,
+            column: 44,
             message: 'Error: Line 1: Invalid JSX Module Name',
             description: 'Invalid JSX Module Name'
 
@@ -14541,7 +14663,7 @@ var fbTestFixture = {
                 throw new Error('FB test should not replace existing test for ' + i);
             }
             testFixture[i] = fixtures;
-            testFixtureOptions[i] = {sourceType: 'module', JSXModule: /JSXModule/.test(i)};
+            testFixtureOptions[i] = {sourceType: 'module'};
 
             if (/( \(module and script\)$)/.test(i)) {
               testFixture[i + ' (non-module)'] = fixtures;

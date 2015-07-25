@@ -59,7 +59,6 @@ for (section in tests) {
     out += "        '"+escape_content(test)+"': {\n";
     var gotError = false;
     try {
-      options.JSXModule = (/JSXModule/.test(section));
       ast = esprima.parse(test, options);
       result = stringify(ast.body[0]);
       result = result
@@ -105,7 +104,7 @@ out += "};\n\n\
                 throw new Error('FB test should not replace existing test for ' + i);\n\
             }\n\
             testFixture[i] = fixtures;\n\
-            testFixtureOptions[i] = {sourceType: 'module', JSXModule: /JSXModule/.test(i)};\n\
+            testFixtureOptions[i] = {sourceType: 'module'};\n\
 \n\
             if (/( \\(module and script\\)$)/.test(i)) {\n\
               testFixture[i + ' (non-module)'] = fixtures;\n\

@@ -1,8 +1,9 @@
+<!DOCTYPE JSX>
+
 <ReactClass name="Timer">  
   <div>Seconds Elapsed: {secondsElapsed}</div>  
   <script>
-    var secondsElapsed = 0;
-    
+    var secondsElapsed = 0;    
     function tick(){
       this.setState({secondsElapsed: secondsElapsed + 1});
     }        

@@ -5728,7 +5728,7 @@
 
         consumeSemicolon();
 
-        if (extra.JSXModule && expr.type === Syntax.JSXElement) {
+        if (state.inJSXModule && expr.type === Syntax.JSXElement) {
             return statementForJSXElement(marker, expr);
         }
         return markerApply(marker, delegate.createExpressionStatement(expr));
@@ -6547,6 +6547,7 @@
         var body, marker = markerCreate();
         strict = extra.sourceType === 'module';
         peek();
+        parseDocTypeJSX();
         body = parseProgramElements();
         return markerApply(marker, delegate.createProgram(body));
     }
@@ -7057,6 +7058,23 @@
             ++index;
         }
         return markerApply(marker, delegate.createJSXEmptyExpression());
+    }
+
+    function parseDocTypeJSX() {
+        if (lookahead.value === '<' && lookahead2().value === '!') {
+            lex(); //<
+            lex(); //!
+            var token = lex();
+            if (!/^doctype$/i.test(token.value)) {
+                throwUnexpected(token);
+            }
+            token = lex();
+            if (!/^jsx/i.test(token.value)) {
+                throwUnexpected(token);
+            }
+            expect('>');
+            state.inJSXModule = true;
+        }
     }
 
     function statementForJSXElement(marker, expression) {
@@ -7689,6 +7707,7 @@
             inSwitch: false,
             inJSXChild: false,
             inJSXTag: false,
+            inJSXModule: false,
             inType: false,
             lastCommentStart: -1,
             yieldAllowed: false,
@@ -7729,9 +7748,6 @@
                 extra.bottomRightStack = [];
                 extra.trailingComments = [];
                 extra.leadingComments = [];
-            }
-            if (typeof options.JSXModule === 'boolean' && options.JSXModule) {
-                extra.JSXModule = true;
             }
         }
 

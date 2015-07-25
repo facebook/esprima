@@ -28,12 +28,15 @@
 
 module.exports = {
     'JSXModule': [
-      '<Module><div>A</div></Module>'
+      '<!DOCTYPE JSX><Module><div>A</div></Module>',
+      '<!DocType Jsx><Module><div>A</div></Module>',
     ],
     'Invalid JSXModule Syntax': [
-      '<module></module>',
-      '<Module></Module>',
-      '<module><div>A</div></module>',
+      '<!TYPE JSX>',
+      '<!DOCTYPE HTML>',
+      '<!DOCTYPE JSX><module></module>',
+      '<!DOCTYPE JSX><Module></Module>',
+      '<!DOCTYPE JSX><module><div>A</div></module>',
     ],
     'JSX': [
         '<a />',
