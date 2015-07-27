@@ -10,552 +10,52 @@ var testFixture;
 var fbTestFixture = {
     'JSXModule': {
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [],
-            range: [14, 65],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 65 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DocType Jsx><ReactClass name="Module"><div>A</div></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [],
-            range: [14, 65],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 65 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module" mixins="a,b"><div>A</div></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 53],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 53 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 53],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 53 }
-                }
-            },
-            attributes: [{
-                type: 'JSXAttribute',
-                name: {
-                    type: 'JSXIdentifier',
-                    name: 'mixins',
-                    range: [40, 46],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 46 }
-                    }
-                },
-                value: {
-                    type: 'Literal',
-                    value: 'a,b',
-                    raw: '"a,b"',
-                    range: [47, 52],
-                    loc: {
-                        start: { line: 1, column: 47 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [54, 57],
-                        loc: {
-                            start: { line: 1, column: 54 },
-                            end: { line: 1, column: 57 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [53, 58],
-                    loc: {
-                        start: { line: 1, column: 53 },
-                        end: { line: 1, column: 58 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [61, 64],
-                        loc: {
-                            start: { line: 1, column: 61 },
-                            end: { line: 1, column: 64 }
-                        }
-                    },
-                    range: [59, 65],
-                    loc: {
-                        start: { line: 1, column: 59 },
-                        end: { line: 1, column: 65 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [58, 59],
-                    loc: {
-                        start: { line: 1, column: 58 },
-                        end: { line: 1, column: 59 }
-                    }
-                }],
-                range: [53, 65],
-                loc: {
-                    start: { line: 1, column: 53 },
-                    end: { line: 1, column: 65 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [],
-            range: [14, 78],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 78 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module">\n \r \r\n <div>A</div>\n</ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 4, column: 2 },
-                            end: { line: 4, column: 5 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [47, 52],
-                    loc: {
-                        start: { line: 4, column: 1 },
-                        end: { line: 4, column: 6 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [55, 58],
-                        loc: {
-                            start: { line: 4, column: 9 },
-                            end: { line: 4, column: 12 }
-                        }
-                    },
-                    range: [53, 59],
-                    loc: {
-                        start: { line: 4, column: 7 },
-                        end: { line: 4, column: 13 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [52, 53],
-                    loc: {
-                        start: { line: 4, column: 6 },
-                        end: { line: 4, column: 7 }
-                    }
-                }],
-                range: [47, 59],
-                loc: {
-                    start: { line: 4, column: 1 },
-                    end: { line: 4, column: 13 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [],
-            range: [14, 73],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 5, column: 13 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>var x;</script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [{
-                type: 'VariableDeclaration',
-                declarations: [{
-                    type: 'VariableDeclarator',
-                    id: {
-                        type: 'Identifier',
-                        name: 'x',
-                        range: [64, 65],
-                        loc: {
-                            start: { line: 1, column: 64 },
-                            end: { line: 1, column: 65 }
-                        }
-                    },
-                    init: null,
-                    range: [64, 65],
-                    loc: {
-                        start: { line: 1, column: 64 },
-                        end: { line: 1, column: 65 }
-                    }
-                }],
-                kind: 'var',
-                range: [60, 66],
-                loc: {
-                    start: { line: 1, column: 60 },
-                    end: { line: 1, column: 66 }
-                }
-            }],
-            scripts: [],
-            range: [14, 88],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 88 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>import x from "y";</script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [{
                 type: 'ImportDeclaration',
                 specifiers: [{
@@ -592,427 +92,41 @@ var fbTestFixture = {
                     end: { line: 1, column: 78 }
                 }
             }],
-            body: [],
-            scripts: [],
-            range: [14, 100],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 100 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>function x(){}</script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [{
-                type: 'FunctionDeclaration',
-                id: {
-                    type: 'Identifier',
-                    name: 'x',
-                    range: [69, 70],
-                    loc: {
-                        start: { line: 1, column: 69 },
-                        end: { line: 1, column: 70 }
-                    }
-                },
-                params: [],
-                defaults: [],
-                body: {
-                    type: 'BlockStatement',
-                    body: [],
-                    range: [72, 74],
-                    loc: {
-                        start: { line: 1, column: 72 },
-                        end: { line: 1, column: 74 }
-                    }
-                },
-                rest: null,
-                generator: false,
-                expression: false,
-                range: [60, 74],
-                loc: {
-                    start: { line: 1, column: 60 },
-                    end: { line: 1, column: 74 }
-                }
-            }],
-            scripts: [],
-            range: [14, 96],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 96 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>x(){}</script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [{
-                type: 'FunctionDeclaration',
-                id: {
-                    type: 'Identifier',
-                    name: 'x',
-                    range: [60, 61],
-                    loc: {
-                        start: { line: 1, column: 60 },
-                        end: { line: 1, column: 61 }
-                    }
-                },
-                params: [],
-                defaults: [],
-                body: {
-                    type: 'BlockStatement',
-                    body: [],
-                    range: [63, 65],
-                    loc: {
-                        start: { line: 1, column: 63 },
-                        end: { line: 1, column: 65 }
-                    }
-                },
-                rest: null,
-                generator: false,
-                expression: false,
-                range: [60, 65],
-                loc: {
-                    start: { line: 1, column: 60 },
-                    end: { line: 1, column: 65 }
-                }
-            }],
-            scripts: [],
-            range: [14, 87],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 87 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/javascript">var x;</script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [{
-                type: 'VariableDeclaration',
-                declarations: [{
-                    type: 'VariableDeclarator',
-                    id: {
-                        type: 'Identifier',
-                        name: 'x',
-                        range: [87, 88],
-                        loc: {
-                            start: { line: 1, column: 87 },
-                            end: { line: 1, column: 88 }
-                        }
-                    },
-                    init: null,
-                    range: [87, 88],
-                    loc: {
-                        start: { line: 1, column: 87 },
-                        end: { line: 1, column: 88 }
-                    }
-                }],
-                kind: 'var',
-                range: [83, 89],
-                loc: {
-                    start: { line: 1, column: 83 },
-                    end: { line: 1, column: 89 }
-                }
-            }],
-            scripts: [],
-            range: [14, 111],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 111 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js"></script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [{
                 type: 'ImportDeclaration',
                 specifiers: [{
@@ -1049,89 +163,14 @@ var fbTestFixture = {
                     end: { line: 1, column: 93 }
                 }
             }],
-            body: [],
-            scripts: [],
-            range: [14, 106],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 106 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js" async></script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [{
                 type: 'ImportDeclaration',
                 specifiers: [{
@@ -1168,800 +207,73 @@ var fbTestFixture = {
                     end: { line: 1, column: 99 }
                 }
             }],
-            body: [],
-            scripts: [],
-            range: [14, 112],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 112 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/vbscript">MsgBox "Hello!"</script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [{
-                type: 'JSXScriptContainer',
-                mime: 'text/vbscript',
-                kind: 'text',
-                attributes: [],
-                text: {
-                    type: 'Literal',
-                    value: 'MsgBox "Hello!"',
-                    raw: 'MsgBox "Hello!"',
-                    range: [81, 105],
-                    loc: {
-                        start: { line: 1, column: 81 },
-                        end: { line: 1, column: 105 }
-                    }
-                },
-                range: [52, 105],
-                loc: {
-                    start: { line: 1, column: 52 },
-                    end: { line: 1, column: 105 }
-                }
-            }],
-            range: [14, 118],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 118 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/vbscript" src="file.vb"></script></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [{
-                type: 'JSXScriptContainer',
-                mime: 'text/vbscript',
-                kind: 'import',
-                src: {
-                    type: 'Literal',
-                    value: 'file.vb',
-                    raw: '"file.vb"',
-                    range: [85, 94],
-                    loc: {
-                        start: { line: 1, column: 85 },
-                        end: { line: 1, column: 94 }
-                    }
-                },
-                attributes: [],
-                range: [52, 104],
-                loc: {
-                    start: { line: 1, column: 52 },
-                    end: { line: 1, column: 104 }
-                }
-            }],
-            range: [14, 117],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 117 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style> div { color: red }</style></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [{
-                type: 'JSXScriptContainer',
-                mime: 'text/css',
-                kind: 'text',
-                attributes: [],
-                text: {
-                    type: 'Literal',
-                    value: ' div { color: red }',
-                    raw: ' div { color: red }',
-                    range: [59, 86],
-                    loc: {
-                        start: { line: 1, column: 59 },
-                        end: { line: 1, column: 86 }
-                    }
-                },
-                range: [52, 86],
-                loc: {
-                    start: { line: 1, column: 52 },
-                    end: { line: 1, column: 86 }
-                }
-            }],
-            range: [14, 99],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 99 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style media="printer">div { color: red }</style></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [{
-                type: 'JSXScriptContainer',
-                mime: 'text/css',
-                kind: 'text',
-                attributes: [{
-                    type: 'JSXAttribute',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'media',
-                        range: [59, 64],
-                        loc: {
-                            start: { line: 1, column: 59 },
-                            end: { line: 1, column: 64 }
-                        }
-                    },
-                    value: {
-                        type: 'Literal',
-                        value: 'printer',
-                        raw: '"printer"',
-                        range: [65, 74],
-                        loc: {
-                            start: { line: 1, column: 65 },
-                            end: { line: 1, column: 74 }
-                        }
-                    },
-                    range: [59, 74],
-                    loc: {
-                        start: { line: 1, column: 59 },
-                        end: { line: 1, column: 74 }
-                    }
-                }],
-                text: {
-                    type: 'Literal',
-                    value: 'div { color: red }',
-                    raw: 'div { color: red }',
-                    range: [75, 101],
-                    loc: {
-                        start: { line: 1, column: 75 },
-                        end: { line: 1, column: 101 }
-                    }
-                },
-                range: [52, 101],
-                loc: {
-                    start: { line: 1, column: 52 },
-                    end: { line: 1, column: 101 }
-                }
-            }],
-            range: [14, 114],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 114 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style media="printer">div\n  {\r    color: red\r\n }</style></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [{
-                type: 'JSXScriptContainer',
-                mime: 'text/css',
-                kind: 'text',
-                attributes: [{
-                    type: 'JSXAttribute',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'media',
-                        range: [59, 64],
-                        loc: {
-                            start: { line: 1, column: 59 },
-                            end: { line: 1, column: 64 }
-                        }
-                    },
-                    value: {
-                        type: 'Literal',
-                        value: 'printer',
-                        raw: '"printer"',
-                        range: [65, 74],
-                        loc: {
-                            start: { line: 1, column: 65 },
-                            end: { line: 1, column: 74 }
-                        }
-                    },
-                    range: [59, 74],
-                    loc: {
-                        start: { line: 1, column: 59 },
-                        end: { line: 1, column: 74 }
-                    }
-                }],
-                text: {
-                    type: 'Literal',
-                    value: 'div\n  {\r    color: red\r\n }',
-                    raw: 'div\n  {\r    color: red\r\n }',
-                    range: [75, 109],
-                    loc: {
-                        start: { line: 1, column: 75 },
-                        end: { line: 4, column: 109 }
-                    }
-                },
-                range: [52, 109],
-                loc: {
-                    start: { line: 1, column: 52 },
-                    end: { line: 4, column: 109 }
-                }
-            }],
-            range: [14, 122],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 4, column: 122 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><link href="theme.css"></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [{
-                type: 'JSXScriptContainer',
-                mime: 'text/css',
-                kind: 'import',
-                src: 'theme.css',
-                attributes: [],
-                range: [52, 75],
-                loc: {
-                    start: { line: 1, column: 52 },
-                    end: { line: 1, column: 75 }
-                }
-            }],
-            range: [14, 88],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 88 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><link media="printer" rel="stylesheet" type="text/css" href="theme.css"></ReactClass>': {
-            type: 'JSXModuleContainer',
-            className: {
-                type: 'Identifier',
-                name: 'Module',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            superClass: {
-                type: 'Identifier',
-                name: 'ReactClass',
-                range: [14, 40],
-                loc: {
-                    start: { line: 1, column: 14 },
-                    end: { line: 1, column: 40 }
-                }
-            },
-            attributes: [],
-            render: [{
-                type: 'JSXElement',
-                openingElement: {
-                    type: 'JSXOpeningElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [41, 44],
-                        loc: {
-                            start: { line: 1, column: 41 },
-                            end: { line: 1, column: 44 }
-                        }
-                    },
-                    selfClosing: false,
-                    attributes: [],
-                    range: [40, 45],
-                    loc: {
-                        start: { line: 1, column: 40 },
-                        end: { line: 1, column: 45 }
-                    }
-                },
-                closingElement: {
-                    type: 'JSXClosingElement',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'div',
-                        range: [48, 51],
-                        loc: {
-                            start: { line: 1, column: 48 },
-                            end: { line: 1, column: 51 }
-                        }
-                    },
-                    range: [46, 52],
-                    loc: {
-                        start: { line: 1, column: 46 },
-                        end: { line: 1, column: 52 }
-                    }
-                },
-                children: [{
-                    type: 'Literal',
-                    value: 'A',
-                    raw: 'A',
-                    range: [45, 46],
-                    loc: {
-                        start: { line: 1, column: 45 },
-                        end: { line: 1, column: 46 }
-                    }
-                }],
-                range: [40, 52],
-                loc: {
-                    start: { line: 1, column: 40 },
-                    end: { line: 1, column: 52 }
-                }
-            }],
+            type: 'JSXModuleDeclaration',
             imports: [],
-            body: [],
-            scripts: [{
-                type: 'JSXScriptContainer',
-                mime: 'text/css',
-                kind: 'import',
-                src: 'theme.css',
-                attributes: [{
-                    type: 'JSXAttribute',
-                    name: {
-                        type: 'JSXIdentifier',
-                        name: 'media',
-                        range: [58, 63],
-                        loc: {
-                            start: { line: 1, column: 58 },
-                            end: { line: 1, column: 63 }
-                        }
-                    },
-                    value: {
-                        type: 'Literal',
-                        value: 'printer',
-                        raw: '"printer"',
-                        range: [64, 73],
-                        loc: {
-                            start: { line: 1, column: 64 },
-                            end: { line: 1, column: 73 }
-                        }
-                    },
-                    range: [58, 73],
-                    loc: {
-                        start: { line: 1, column: 58 },
-                        end: { line: 1, column: 73 }
-                    }
-                }],
-                range: [52, 124],
-                loc: {
-                    start: { line: 1, column: 52 },
-                    end: { line: 1, column: 124 }
-                }
-            }],
-            range: [14, 137],
+            range: [0, 14],
             loc: {
-                start: { line: 1, column: 14 },
-                end: { line: 1, column: 137 }
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
             }
         },
     },
@@ -1986,48 +298,48 @@ var fbTestFixture = {
             index: 26,
             lineNumber: 1,
             column: 27,
-            message: 'Error: Line 1: Invalid JSX Module Name',
-            description: 'Invalid JSX Module Name'
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
 
         },
         '<!DOCTYPE JSX><ReactClass></ReactClass>': {
             index: 26,
             lineNumber: 1,
             column: 27,
-            message: 'Error: Line 1: Invalid JSX Module Name',
-            description: 'Invalid JSX Module Name'
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
 
         },
         '<!DOCTYPE JSX><ReactClass />': {
             index: 28,
             lineNumber: 1,
             column: 29,
-            message: 'Error: Line 1: JSX Module must to have children for render',
-            description: 'JSX Module must to have children for render'
+            message: 'Error: Line 1: JSX class must to have children for render',
+            description: 'JSX class must to have children for render'
 
         },
         '<!DOCTYPE JSX><ReactClass name="module"></ReactClass>': {
             index: 40,
             lineNumber: 1,
             column: 41,
-            message: 'Error: Line 1: Invalid JSX Module Name',
-            description: 'Invalid JSX Module Name'
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
 
         },
         '<!DOCTYPE JSX><ReactClass name="module"><div>A</div></ReactClass>': {
             index: 40,
             lineNumber: 1,
             column: 41,
-            message: 'Error: Line 1: Invalid JSX Module Name',
-            description: 'Invalid JSX Module Name'
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
 
         },
         '<!DOCTYPE JSX><ReactClass name="Module"></ReactClass>': {
             index: 53,
             lineNumber: 1,
             column: 54,
-            message: 'Error: Line 1: JSX Module must to have children for render',
-            description: 'JSX Module must to have children for render'
+            message: 'Error: Line 1: JSX class must to have children for render',
+            description: 'JSX class must to have children for render'
 
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div></ReactComponent>': {

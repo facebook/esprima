@@ -209,7 +209,8 @@
         JSXMemberExpression: 'JSXMemberExpression',
         JSXEmptyExpression: 'JSXEmptyExpression',
         JSXExpressionContainer: 'JSXExpressionContainer',
-        JSXModuleContainer: 'JSXModuleContainer',
+        JSXModuleDeclaration: 'JSXModuleDeclaration',
+        JSXClassDeclaration: 'JSXClassDeclaration',
         JSXScriptContainer: 'JSXScriptContainer',
         JSXElement: 'JSXElement',
         JSXClosingElement: 'JSXClosingElement',
@@ -289,9 +290,9 @@
         EachNotAllowed: 'Each is not supported',
         InvalidJSXAttributeValue: 'JSX value should be either an expression or a quoted JSX text',
         ExpectedJSXClosingTag: 'Expected corresponding JSX closing tag for %0',
-        InvalidJSXModuleName: 'Invalid JSX Module Name',
+        InvalidJSXClassName: 'Invalid JSX class name',
         InvalidJSXScriptID: 'this script must have an ID',
-        ExpectedChildrenForJSXModule: 'JSX Module must to have children for render',
+        ExpectedChildrenForJSXClass: 'JSX class must to have children for render',
         AdjacentJSXElements: 'Adjacent JSX elements must be wrapped in an enclosing tag',
         ConfusedAboutFunctionType: 'Unexpected token =>. It looks like ' +
             'you are trying to write a function type, but you ended up ' +
@@ -2385,14 +2386,20 @@
             };
         },
 
-        createJSXModuleContainer: function (className, superClass, classAttrs, render, imports, body, scripts) {
+        createJSXModuleDeclaration: function () {
             return {
-              type: Syntax.JSXModuleContainer,
+              type: Syntax.JSXModuleDeclaration,
+              imports: []
+            };
+        },
+
+        createJSXClassDeclaration: function (className, superClass, classAttrs, render, body, scripts) {
+            return {
+              type: Syntax.JSXClassDeclaration,
               className: className,
               superClass: superClass,
               attributes: classAttrs,
               render: render,
-              imports: imports,
               body: body,
               scripts: scripts
             };
@@ -6520,7 +6527,7 @@
         }
 
         if (state.jsxModule && lookahead.value === '<') {
-            return parseJSXModule();
+            return parseJSXClassDefinition();
         }
 
         return parseSourceElement();
@@ -6530,7 +6537,7 @@
         var sourceElement, sourceElements = [], token, directive, firstRestricted;
 
         if (extra.sourceType === 'module' && lookahead.value === '<' && lookahead2().value === '!') {
-            parseDocTypeJSX();
+            sourceElements.push(parseJSXModuleDeclaration());
         }
 
         while (index < length) {
@@ -7085,10 +7092,12 @@
         return markerApply(marker, delegate.createJSXEmptyExpression());
     }
 
-    function parseDocTypeJSX() {
+    function parseJSXModuleDeclaration() {
+        var token, marker = markerCreate();
+
         expect('<');
         expect('!');
-        var token = lex();
+        token = lex();
         if (!/^doctype$/i.test(token.value)) {
             throwUnexpected(token);
         }
@@ -7097,12 +7106,14 @@
             throwUnexpected(token);
         }
         expect('>');
-        state.jsxModule = true;
+        state.jsxModule = delegate.createJSXModuleDeclaration();
+        return markerApply(marker, state.jsxModule);
+
     }
 
-    function parseJSXModule() {
+    function parseJSXClassDefinition() {
 
-        var openingElement, closingElement = null, className, superClass, classAttrs, body = [], imports = [], scripts = [], render = [], origInJSXChild, origInJSXTag, script, marker = markerCreate();
+        var openingElement, closingElement = null, className, superClass, classAttrs, body = [], scripts = [], render = [], origInJSXChild, origInJSXTag, script, marker = markerCreate();
 
         origInJSXChild = state.inJSXChild;
         origInJSXTag = state.inJSXTag;
@@ -7113,11 +7124,11 @@
         superClass = markerApply(marker, delegate.createIdentifier(openingElement.name.name));
 
         if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(superClass.name)) {
-            throwError({}, Messages.InvalidJSXModuleName);
+            throwError({}, Messages.InvalidJSXClassName);
         }
 
         if (openingElement.selfClosing) {
-            throwError({}, Messages.ExpectedChildrenForJSXModule);
+            throwError({}, Messages.ExpectedChildrenForJSXClass);
         }
 
         classAttrs = [];
@@ -7129,7 +7140,7 @@
             }
         });
         if (!(className && /^[A-Z][A-Z,a-z,0-9,_]+$/.test(className.name))) {
-            throwError({}, Messages.InvalidJSXModuleName);
+            throwError({}, Messages.InvalidJSXClassName);
         }
 
         while (index < length) {
@@ -7140,7 +7151,7 @@
             } else if (lookahead.value === '<' && lookahead2().value === '/') {
                 break;
             } else if (matchJSXModuleScript()) {
-                script = parseJSXModuleScript(imports, body);
+                script = parseJSXModuleScript(body);
                 if (script) {
                     scripts.push(script);
                 }
@@ -7159,10 +7170,10 @@
         }
 
         if (!render.length) {
-            throwError({}, Messages.ExpectedChildrenForJSXModule);
+            throwError({}, Messages.ExpectedChildrenForJSXClass);
         }
 
-        return markerApply(marker, delegate.createJSXModuleContainer(className, superClass, classAttrs, render, imports, body, scripts));
+        return markerApply(marker, delegate.createJSXClassDeclaration(className, superClass, classAttrs, render, body, scripts));
 
     }
 
@@ -7177,7 +7188,7 @@
         return false;
     }
 
-    function parseJSXModuleScript(imports, body) {
+    function parseJSXModuleScript(body) {
 
         var element, tag, mime, specifier, src, attrs = [], script, marker = markerCreate();
 
@@ -7200,9 +7211,9 @@
             if (!mime || /javascript/i.test(mime)) {
                 if (src) {
                     script = parseJSXModuleTextScript(element, tag, src);
-                    return createJSXModuleJavaScriptImport(marker, specifier, src, imports);
+                    return createJSXModuleJavaScriptImport(marker, specifier, src);
                 }
-                return parseJSXModuleJavaScript(element, imports, body);
+                return parseJSXModuleJavaScript(element, body);
             }
             break;
         case 'style':
@@ -7231,16 +7242,16 @@
         return markerApply(marker, delegate.createJSXScriptContainer(mime, src ? 'import' : 'text', src, attrs, script));
     }
 
-    function createJSXModuleJavaScriptImport(marker, specifier, src, imports) {
+    function createJSXModuleJavaScriptImport(marker, specifier, src) {
         if (!specifier) {
             throwError({}, Messages.InvalidJSXScriptID);
         }
         var specifierNode = markerApply(marker, delegate.createImportSpecifier(markerApply(marker, delegate.createIdentifier(specifier))));
-        imports.push(markerApply(marker, delegate.createImportDeclaration([specifierNode], src, 'value')));
+        state.jsxModule.imports.push(markerApply(marker, delegate.createImportDeclaration([specifierNode], src, 'value')));
         return undefined;
     }
 
-    function parseJSXModuleJavaScript(openingElement, imports, body) {
+    function parseJSXModuleJavaScript(openingElement, body) {
         var element;
         state.inJSXChild = false;
         state.inJSXTag = false;
@@ -7252,7 +7263,7 @@
             if (lookahead.type === Token.Keyword) {
                 switch (lookahead.value) {
                 case 'import':
-                    imports.push(parseImportDeclaration());
+                    state.jsxModule.imports.push(parseImportDeclaration());
                     break;
                 case 'function':
                     body.push(parseFunctionDeclaration());
