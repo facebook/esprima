@@ -210,6 +210,7 @@
         JSXEmptyExpression: 'JSXEmptyExpression',
         JSXExpressionContainer: 'JSXExpressionContainer',
         JSXModuleContainer: 'JSXModuleContainer',
+        JSXScriptContainer: 'JSXScriptContainer',
         JSXElement: 'JSXElement',
         JSXClosingElement: 'JSXClosingElement',
         JSXOpeningElement: 'JSXOpeningElement',
@@ -289,6 +290,7 @@
         InvalidJSXAttributeValue: 'JSX value should be either an expression or a quoted JSX text',
         ExpectedJSXClosingTag: 'Expected corresponding JSX closing tag for %0',
         InvalidJSXModuleName: 'Invalid JSX Module Name',
+        InvalidJSXScriptID: 'this script must have an ID',
         ExpectedChildrenForJSXModule: 'JSX Module must to have children for render',
         AdjacentJSXElements: 'Adjacent JSX elements must be wrapped in an enclosing tag',
         ConfusedAboutFunctionType: 'Unexpected token =>. It looks like ' +
@@ -2383,11 +2385,27 @@
             };
         },
 
-        createJSXModuleContainer: function (element, body) {
+        createJSXModuleContainer: function (className, superClass, classAttrs, render, imports, body, scripts) {
             return {
-                type: Syntax.JSXModuleContainer,
-                element: element,
-                body: body
+              type: Syntax.JSXModuleContainer,
+              className: className,
+              superClass: superClass,
+              attributes: classAttrs,
+              render: render,
+              imports: imports,
+              body: body,
+              scripts: scripts
+            };
+        },
+
+        createJSXScriptContainer: function (mime, kind, src, attrs, script) {
+            return {
+              type: Syntax.JSXScriptContainer,
+              mime: mime,
+              kind: kind,
+              src: src,
+              attributes: attrs,
+              text: script
             };
         },
 
@@ -5728,9 +5746,6 @@
 
         consumeSemicolon();
 
-        if (state.inJSXModule && expr.type === Syntax.JSXElement) {
-            return statementForJSXElement(marker, expr);
-        }
         return markerApply(marker, delegate.createExpressionStatement(expr));
     }
 
@@ -5938,18 +5953,20 @@
         return markerApply(marker, options);
     }
 
-    function parseFunctionDeclaration() {
+    function parseFunctionDeclaration(skipFunctionKeyword) {
         var id, body, token, tmp, firstRestricted, message, generator, isAsync,
             previousStrict, previousYieldAllowed, previousAwaitAllowed,
             marker = markerCreate(), typeParameters;
 
-        isAsync = false;
-        if (matchAsync()) {
-            lex();
-            isAsync = true;
-        }
+        if (!skipFunctionKeyword) {
+            isAsync = false;
+            if (matchAsync()) {
+                lex();
+                isAsync = true;
+            }
 
-        expectKeyword('function');
+            expectKeyword('function');
+        }
 
         generator = false;
         if (match('*')) {
@@ -6502,11 +6519,19 @@
             }
         }
 
+        if (state.jsxModule && lookahead.value === '<') {
+            return parseJSXModule();
+        }
+
         return parseSourceElement();
     }
 
     function parseProgramElements() {
         var sourceElement, sourceElements = [], token, directive, firstRestricted;
+
+        if (extra.sourceType === 'module' && lookahead.value === '<' && lookahead2().value === '!') {
+            parseDocTypeJSX();
+        }
 
         while (index < length) {
             token = lookahead;
@@ -6547,7 +6572,7 @@
         var body, marker = markerCreate();
         strict = extra.sourceType === 'module';
         peek();
-        parseDocTypeJSX();
+
         body = parseProgramElements();
         return markerApply(marker, delegate.createProgram(body));
     }
@@ -7061,30 +7086,244 @@
     }
 
     function parseDocTypeJSX() {
-        if (lookahead.value === '<' && lookahead2().value === '!') {
-            lex(); //<
-            lex(); //!
-            var token = lex();
-            if (!/^doctype$/i.test(token.value)) {
-                throwUnexpected(token);
-            }
-            token = lex();
-            if (!/^jsx/i.test(token.value)) {
-                throwUnexpected(token);
-            }
-            expect('>');
-            state.inJSXModule = true;
+        expect('<');
+        expect('!');
+        var token = lex();
+        if (!/^doctype$/i.test(token.value)) {
+            throwUnexpected(token);
         }
+        token = lex();
+        if (!/^jsx/i.test(token.value)) {
+            throwUnexpected(token);
+        }
+        expect('>');
+        state.jsxModule = true;
     }
 
-    function statementForJSXElement(marker, expression) {
-        if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(expression.openingElement.name.name)) {
+    function parseJSXModule() {
+
+        var openingElement, closingElement = null, className, superClass, classAttrs, body = [], imports = [], scripts = [], render = [], origInJSXChild, origInJSXTag, script, marker = markerCreate();
+
+        origInJSXChild = state.inJSXChild;
+        origInJSXTag = state.inJSXTag;
+        state.inJSXChild = false;
+        state.inJSXTag = false;
+
+        openingElement = parseJSXOpeningElement();
+        superClass = openingElement.name.name;
+
+        if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(superClass)) {
             throwError({}, Messages.InvalidJSXModuleName);
         }
-        if (!expression.children.length) {
+
+        if (openingElement.selfClosing) {
             throwError({}, Messages.ExpectedChildrenForJSXModule);
         }
-        return markerApply(marker, delegate.createJSXModuleContainer(expression));
+
+        classAttrs = [];
+        openingElement.attributes.forEach(function (attr) {
+            if (attr.value.type === Syntax.Literal && attr.name.name === 'name') {
+                className = attr.value.value;
+            } else {
+                classAttrs.push(attr);
+            }
+        });
+        if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(className)) {
+            throwError({}, Messages.InvalidJSXModuleName);
+        }
+
+        while (index < length) {
+            state.inJSXTag = false;
+            state.inJSXChild = false;
+            if (!lookahead.value.replace(/\s/g, '')) {
+                lex();
+            } else if (lookahead.value === '<' && lookahead2().value === '/') {
+                break;
+            } else if (matchJSXModuleScript()) {
+                script = parseJSXModuleScript(imports, body);
+                if (script) {
+                    scripts.push(script);
+                }
+            } else if (lookahead.value === '<') {
+                state.inJSXChild = true;
+                render.push(parseJSXChild());
+            } else {
+                throwUnexpected({});
+            }
+        }
+        state.inJSXChild = origInJSXChild;
+        state.inJSXTag = origInJSXTag;
+        closingElement = parseJSXClosingElement();
+        if (getQualifiedJSXName(closingElement.name) !== getQualifiedJSXName(openingElement.name)) {
+            throwError({}, Messages.ExpectedJSXClosingTag, getQualifiedJSXName(openingElement.name));
+        }
+
+        if (!render.length) {
+            throwError({}, Messages.ExpectedChildrenForJSXModule);
+        }
+
+        return markerApply(marker, delegate.createJSXModuleContainer(className, superClass, classAttrs, render, imports, body, scripts));
+
+    }
+
+    function matchJSXModuleScript() {
+        var tag;
+        if (lookahead.value === '<') {
+            state.inJSXTag = true;
+            state.inJSXChild = false;
+            tag = lookahead2();
+            return tag.type === Token.JSXIdentifier && /^(script|style|link)$/i.test(tag.value);
+        }
+        return false;
+    }
+
+    function parseJSXModuleScript(imports, body) {
+
+        var element, tag, mime, specifier, src, attrs = [], script, marker = markerCreate();
+
+        element = parseJSXOpeningElement();
+        tag = element.name.name.toLowerCase();
+
+        switch (tag){
+        case 'script':
+            element.attributes.forEach(function (attr) {
+                if (attr.value && attr.value.type === Syntax.Literal && attr.name.name === 'type') {
+                    mime = attr.value.value;
+                } else if (attr.value && attr.value.type === Syntax.Literal && attr.name.name === 'src') {
+                    src = attr.value;
+                } else if (attr.value && attr.value.type === Syntax.Literal && attr.name.name === 'id') {
+                    specifier = attr.value.value;
+                } else {
+                    attrs.push(attr);
+                }
+            });
+            if (!mime || /javascript/i.test(mime)) {
+                if (src) {
+                    script = parseJSXModuleTextScript(element, tag, src);
+                    return createJSXModuleJavaScriptImport(marker, specifier, src, imports);
+                }
+                return parseJSXModuleJavaScript(element, imports, body);
+            }
+            break;
+        case 'style':
+            mime = 'text/css';
+            element.attributes.forEach(function (attr) {
+                attrs.push(attr);
+            });
+            break;
+        case 'link':
+            element.attributes.forEach(function (attr) {
+                if (attr.value && attr.value.type === Syntax.Literal && attr.name.name === 'type') {
+                    mime = attr.value.value;
+                } else if (attr.value && attr.value.type === Syntax.Literal && attr.name.name === 'href') {
+                    src = attr.value.value;
+                } else if (attr.value && attr.name.name !== 'rel' || attr.value.value !== 'stylesheet') {
+                    attrs.push(attr);
+                }
+            });
+            mime = mime || 'text/css';
+            break;
+
+        }
+
+        script = parseJSXModuleTextScript(element, tag, src);
+
+        return markerApply(marker, delegate.createJSXScriptContainer(mime, src ? 'import' : 'text', src, attrs, script));
+    }
+
+    function createJSXModuleJavaScriptImport(marker, specifier, src, imports) {
+        if (!specifier) {
+            throwError({}, Messages.InvalidJSXScriptID);
+        }
+        var specifierNode = markerApply(marker, delegate.createImportSpecifier(markerApply(marker, delegate.createIdentifier(specifier))));
+        imports.push(markerApply(marker, delegate.createImportDeclaration([specifierNode], src, 'value')));
+        return undefined;
+    }
+
+    function parseJSXModuleJavaScript(openingElement, imports, body) {
+        var element;
+        state.inJSXChild = false;
+        state.inJSXTag = false;
+        peek();
+        while (index < length) {
+            if (lookahead.value === '<' && lookahead2().value === '/') {
+                break;
+            }
+            if (lookahead.type === Token.Keyword) {
+                switch (lookahead.value) {
+                case 'import':
+                    imports.push(parseImportDeclaration());
+                    break;
+                case 'function':
+                    body.push(parseFunctionDeclaration());
+                    break;
+                case 'var':
+                    body.push(parseVariableStatement());
+                    break;
+                default:
+                    throwUnexpected({});
+                }
+            } else {
+                if (lookahead.type === Token.Identifier && lookahead2().value === '(') {
+                    body.push(parseFunctionDeclaration(true));
+                } else {
+                    throwUnexpected({});
+                }
+            }
+        }
+        if (lookahead.type === Token.EOF) {
+            throwUnexpected(lookahead);
+        }
+        element = parseJSXClosingElement();
+        if (getQualifiedJSXName(element.name) !== getQualifiedJSXName(openingElement.name)) {
+            throwError({}, Messages.ExpectedJSXClosingTag, getQualifiedJSXName(openingElement.name));
+        }
+        return null;
+    }
+
+    function parseJSXModuleTextScript(openingElement, tag, src) {
+        var innerToken, start, ch, element, marker = markerCreatePreserveWhitespace();
+        if (src) {
+            if (tag !== 'link') {
+                element = parseJSXClosingElement();
+                if (getQualifiedJSXName(element.name) !== getQualifiedJSXName(openingElement.name)) {
+                    throwError({}, Messages.ExpectedJSXClosingTag, getQualifiedJSXName(openingElement.name));
+                }
+            }
+            return undefined;
+        }
+
+        tag = '</' + tag + '>';
+        start = index;
+        while (index < length) {
+            ch = source[index];
+            if (ch === '<' && source.substr(index, tag.length).toLowerCase() === tag) {
+                break;
+            }
+            index++;
+            if (ch === '\r' && source[index] === '\n') {
+                ch = source[index];
+                index++;
+            }
+            if (isLineTerminator(ch.charCodeAt(0))) {
+                ++lineNumber;
+            }
+        }
+
+        if (index >= length) {
+            throwError({}, Messages.ExpectedJSXClosingTag, getQualifiedJSXName(openingElement.name));
+        }
+
+        innerToken = {
+            type: Token.JSXText,
+            value: source.substring(start, index),
+            lineNumber: lineNumber,
+            lineStart: lineStart,
+            range: [start, index]
+        };
+        index += tag.length;
+        peek();
+        return markerApply(marker, delegate.createLiteral(innerToken));
     }
 
     function parseJSXExpressionContainer() {
@@ -7707,7 +7946,7 @@
             inSwitch: false,
             inJSXChild: false,
             inJSXTag: false,
-            inJSXModule: false,
+            jsxModule: false,
             inType: false,
             lastCommentStart: -1,
             yieldAllowed: false,
