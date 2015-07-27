@@ -11,8 +11,24 @@ var fbTestFixture = {
     'JSXModule': {
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -79,8 +95,24 @@ var fbTestFixture = {
         },
         '<!DocType Jsx><ReactClass name="Module"><div>A</div></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -147,8 +179,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module" mixins="a,b"><div>A</div></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 53],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 53 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 53],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 53 }
+                }
+            },
             attributes: [{
                 type: 'JSXAttribute',
                 name: {
@@ -241,8 +289,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module">\n \r \r\n <div>A</div>\n</ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -309,8 +373,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>var x;</script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -403,8 +483,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>import x from "y";</script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -506,8 +602,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>function x(){}</script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -604,8 +716,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>x(){}</script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -702,8 +830,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/javascript">var x;</script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -796,8 +940,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js"></script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -899,8 +1059,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js" async></script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -1002,8 +1178,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/vbscript">MsgBox "Hello!"</script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -1090,8 +1282,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/vbscript" src="file.vb"></script></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -1178,8 +1386,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style> div { color: red }</style></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -1266,8 +1490,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style media="printer">div { color: red }</style></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -1380,8 +1620,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style media="printer">div\n  {\r    color: red\r\n }</style></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -1494,8 +1750,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><link href="theme.css"></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',
@@ -1573,8 +1845,24 @@ var fbTestFixture = {
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><link media="printer" rel="stylesheet" type="text/css" href="theme.css"></ReactClass>': {
             type: 'JSXModuleContainer',
-            className: 'Module',
-            superClass: 'ReactClass',
+            className: {
+                type: 'Identifier',
+                name: 'Module',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
+            superClass: {
+                type: 'Identifier',
+                name: 'ReactClass',
+                range: [14, 40],
+                loc: {
+                    start: { line: 1, column: 14 },
+                    end: { line: 1, column: 40 }
+                }
+            },
             attributes: [],
             render: [{
                 type: 'JSXElement',

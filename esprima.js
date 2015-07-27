@@ -7110,9 +7110,9 @@
         state.inJSXTag = false;
 
         openingElement = parseJSXOpeningElement();
-        superClass = openingElement.name.name;
+        superClass = markerApply(marker, delegate.createIdentifier(openingElement.name.name));
 
-        if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(superClass)) {
+        if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(superClass.name)) {
             throwError({}, Messages.InvalidJSXModuleName);
         }
 
@@ -7123,12 +7123,12 @@
         classAttrs = [];
         openingElement.attributes.forEach(function (attr) {
             if (attr.value.type === Syntax.Literal && attr.name.name === 'name') {
-                className = attr.value.value;
+                className = markerApply(marker, delegate.createIdentifier(attr.value.value));
             } else {
                 classAttrs.push(attr);
             }
         });
-        if (!/^[A-Z][A-Z,a-z,0-9,_]+$/.test(className)) {
+        if (!(className && /^[A-Z][A-Z,a-z,0-9,_]+$/.test(className.name))) {
             throwError({}, Messages.InvalidJSXModuleName);
         }
 
