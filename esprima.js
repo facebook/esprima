@@ -292,7 +292,7 @@
         ExpectedJSXClosingTag: 'Expected corresponding JSX closing tag for %0',
         InvalidJSXClassName: 'Invalid JSX class name',
         InvalidJSXScriptID: 'this script must have an ID',
-        ExpectedChildrenForJSXClass: 'JSX class must to have children for render',
+        ExpectedChildForJSXClass: 'JSX class must one child to render',
         AdjacentJSXElements: 'Adjacent JSX elements must be wrapped in an enclosing tag',
         ConfusedAboutFunctionType: 'Unexpected token =>. It looks like ' +
             'you are trying to write a function type, but you ended up ' +
@@ -7113,7 +7113,7 @@
 
     function parseJSXClassDefinition() {
 
-        var openingElement, closingElement = null, className, superClass, classAttrs, body = [], scripts = [], render = [], origInJSXChild, origInJSXTag, script, marker = markerCreate();
+        var openingElement, closingElement = null, className, superClass, classAttrs, body = [], scripts = [], render, origInJSXChild, origInJSXTag, script, marker = markerCreate();
 
         origInJSXChild = state.inJSXChild;
         origInJSXTag = state.inJSXTag;
@@ -7128,7 +7128,7 @@
         }
 
         if (openingElement.selfClosing) {
-            throwError({}, Messages.ExpectedChildrenForJSXClass);
+            throwError({}, Messages.ExpectedChildForJSXClass);
         }
 
         classAttrs = [];
@@ -7156,8 +7156,11 @@
                     scripts.push(script);
                 }
             } else if (lookahead.value === '<') {
+                if (render) {
+                    throwError({}, Messages.ExpectedChildForJSXClass);
+                }
                 state.inJSXChild = true;
-                render.push(parseJSXChild());
+                render = parseJSXChild();
             } else {
                 throwUnexpected({});
             }
@@ -7169,8 +7172,8 @@
             throwError({}, Messages.ExpectedJSXClosingTag, getQualifiedJSXName(openingElement.name));
         }
 
-        if (!render.length) {
-            throwError({}, Messages.ExpectedChildrenForJSXClass);
+        if (!render) {
+            throwError({}, Messages.ExpectedChildForJSXClass);
         }
 
         return markerApply(marker, delegate.createJSXClassDeclaration(className, superClass, classAttrs, render, body, scripts));

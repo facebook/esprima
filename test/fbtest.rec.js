@@ -4,7 +4,7 @@
 * tests/fbtest.js and run tools/generate-fbtest.js
 */
 
-var numTests = 266
+var numTests = 267
 var testFixture;
 
 var fbTestFixture = {
@@ -314,8 +314,8 @@ var fbTestFixture = {
             index: 28,
             lineNumber: 1,
             column: 29,
-            message: 'Error: Line 1: JSX class must to have children for render',
-            description: 'JSX class must to have children for render'
+            message: 'Error: Line 1: JSX class must one child to render',
+            description: 'JSX class must one child to render'
 
         },
         '<!DOCTYPE JSX><ReactClass name="module"></ReactClass>': {
@@ -334,12 +334,20 @@ var fbTestFixture = {
             description: 'Invalid JSX class name'
 
         },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><div>B</div></ReactClass>': {
+            index: 52,
+            lineNumber: 1,
+            column: 53,
+            message: 'Error: Line 1: JSX class must one child to render',
+            description: 'JSX class must one child to render'
+
+        },
         '<!DOCTYPE JSX><ReactClass name="Module"></ReactClass>': {
             index: 53,
             lineNumber: 1,
             column: 54,
-            message: 'Error: Line 1: JSX class must to have children for render',
-            description: 'JSX class must to have children for render'
+            message: 'Error: Line 1: JSX class must one child to render',
+            description: 'JSX class must one child to render'
 
         },
         '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div></ReactComponent>': {

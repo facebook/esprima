@@ -55,6 +55,7 @@ module.exports = {
       '<!DOCTYPE JSX><ReactClass />',
       '<!DOCTYPE JSX><ReactClass name="module"></ReactClass>',
       '<!DOCTYPE JSX><ReactClass name="module"><div>A</div></ReactClass>',
+      '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><div>B</div></ReactClass>',
       '<!DOCTYPE JSX><ReactClass name="Module"></ReactClass>',
       '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div></ReactComponent>',
       '<!DOCTYPE JSX><ReactClass name="Module">A</ReactClass>',
