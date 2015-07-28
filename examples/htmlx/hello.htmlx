@@ -1,0 +1,7 @@
+<!DOCTYPE JSX>
+
+<ReactClass name="HelloMessage">
+  <div>Hello {this.props.name}</div>
+</ReactClass>
+
+React.render(<HelloMessage name="John" />, mountNode);

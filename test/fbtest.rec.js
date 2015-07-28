@@ -4,10 +4,457 @@
 * tests/fbtest.js and run tools/generate-fbtest.js
 */
 
-var numTests = 227
+var numTests = 267
 var testFixture;
 
 var fbTestFixture = {
+    'JSXModule': {
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DocType Jsx><ReactClass name="Module"><div>A</div></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module" mixins="a,b"><div>A</div></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module">\n \r \r\n <div>A</div>\n</ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>var x;</script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>import x from "y";</script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [{
+                type: 'ImportDeclaration',
+                specifiers: [{
+                    type: 'ImportDefaultSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'x',
+                        range: [67, 68],
+                        loc: {
+                            start: { line: 1, column: 67 },
+                            end: { line: 1, column: 68 }
+                        }
+                    },
+                    range: [67, 68],
+                    loc: {
+                        start: { line: 1, column: 67 },
+                        end: { line: 1, column: 68 }
+                    }
+                }],
+                source: {
+                    type: 'Literal',
+                    value: 'y',
+                    raw: '"y"',
+                    range: [74, 77],
+                    loc: {
+                        start: { line: 1, column: 74 },
+                        end: { line: 1, column: 77 }
+                    }
+                },
+                importKind: 'value',
+                range: [60, 78],
+                loc: {
+                    start: { line: 1, column: 60 },
+                    end: { line: 1, column: 78 }
+                }
+            }],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>function x(){}</script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>x(){}</script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/javascript">var x;</script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js"></script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [{
+                type: 'ImportDeclaration',
+                specifiers: [{
+                    type: 'ImportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'file',
+                        range: [52, 93],
+                        loc: {
+                            start: { line: 1, column: 52 },
+                            end: { line: 1, column: 93 }
+                        }
+                    },
+                    range: [52, 93],
+                    loc: {
+                        start: { line: 1, column: 52 },
+                        end: { line: 1, column: 93 }
+                    }
+                }],
+                source: {
+                    type: 'Literal',
+                    value: 'file.js',
+                    raw: '"file.js"',
+                    range: [74, 83],
+                    loc: {
+                        start: { line: 1, column: 74 },
+                        end: { line: 1, column: 83 }
+                    }
+                },
+                importKind: 'value',
+                range: [52, 93],
+                loc: {
+                    start: { line: 1, column: 52 },
+                    end: { line: 1, column: 93 }
+                }
+            }],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js" async></script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [{
+                type: 'ImportDeclaration',
+                specifiers: [{
+                    type: 'ImportSpecifier',
+                    id: {
+                        type: 'Identifier',
+                        name: 'file',
+                        range: [52, 99],
+                        loc: {
+                            start: { line: 1, column: 52 },
+                            end: { line: 1, column: 99 }
+                        }
+                    },
+                    range: [52, 99],
+                    loc: {
+                        start: { line: 1, column: 52 },
+                        end: { line: 1, column: 99 }
+                    }
+                }],
+                source: {
+                    type: 'Literal',
+                    value: 'file.js',
+                    raw: '"file.js"',
+                    range: [74, 83],
+                    loc: {
+                        start: { line: 1, column: 74 },
+                        end: { line: 1, column: 83 }
+                    }
+                },
+                importKind: 'value',
+                range: [52, 99],
+                loc: {
+                    start: { line: 1, column: 52 },
+                    end: { line: 1, column: 99 }
+                }
+            }],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/vbscript">MsgBox "Hello!"</script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script type="text/vbscript" src="file.vb"></script></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style> div { color: red }</style></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style media="printer">div { color: red }</style></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style media="printer">div\n  {\r    color: red\r\n }</style></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><link href="theme.css"></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><link media="printer" rel="stylesheet" type="text/css" href="theme.css"></ReactClass>': {
+            type: 'JSXModuleDeclaration',
+            imports: [],
+            range: [0, 14],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 14 }
+            }
+        },
+    },
+    'Invalid JSXModule Syntax': {
+        '<!TYPE JSX>': {
+            index: 2,
+            lineNumber: 1,
+            column: 3,
+            message: 'Error: Line 1: Unexpected identifier',
+            description: 'Unexpected identifier'
+
+        },
+        '<!DOCTYPE HTML>': {
+            index: 10,
+            lineNumber: 1,
+            column: 11,
+            message: 'Error: Line 1: Unexpected identifier',
+            description: 'Unexpected identifier'
+
+        },
+        '<!DOCTYPE JSX><reactClass></reactClass>': {
+            index: 26,
+            lineNumber: 1,
+            column: 27,
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
+
+        },
+        '<!DOCTYPE JSX><ReactClass></ReactClass>': {
+            index: 26,
+            lineNumber: 1,
+            column: 27,
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
+
+        },
+        '<!DOCTYPE JSX><ReactClass />': {
+            index: 28,
+            lineNumber: 1,
+            column: 29,
+            message: 'Error: Line 1: JSX class must one child to render',
+            description: 'JSX class must one child to render'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="module"></ReactClass>': {
+            index: 40,
+            lineNumber: 1,
+            column: 41,
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="module"><div>A</div></ReactClass>': {
+            index: 40,
+            lineNumber: 1,
+            column: 41,
+            message: 'Error: Line 1: Invalid JSX class name',
+            description: 'Invalid JSX class name'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><div>B</div></ReactClass>': {
+            index: 52,
+            lineNumber: 1,
+            column: 53,
+            message: 'Error: Line 1: JSX class must one child to render',
+            description: 'JSX class must one child to render'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"></ReactClass>': {
+            index: 53,
+            lineNumber: 1,
+            column: 54,
+            message: 'Error: Line 1: JSX class must one child to render',
+            description: 'JSX class must one child to render'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div></ReactComponent>': {
+            index: 69,
+            lineNumber: 1,
+            column: 70,
+            message: 'Error: Line 1: Expected corresponding JSX closing tag for ReactClass',
+            description: 'Expected corresponding JSX closing tag for ReactClass'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module">A</ReactClass>': {
+            index: 40,
+            lineNumber: 1,
+            column: 41,
+            message: 'Error: Line 1: Unexpected token undefined',
+            description: 'Unexpected token undefined'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>import x from "y";</ReactClass>': {
+            index: 91,
+            lineNumber: 1,
+            column: 92,
+            message: 'Error: Line 1: Expected corresponding JSX closing tag for script',
+            description: 'Expected corresponding JSX closing tag for script'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>import x from "y";</script>': {
+            index: 87,
+            lineNumber: 1,
+            column: 88,
+            message: 'Error: Line 1: Unexpected end of input',
+            description: 'Unexpected end of input'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>import x from "y";': {
+            index: 78,
+            lineNumber: 1,
+            column: 79,
+            message: 'Error: Line 1: Unexpected end of input',
+            description: 'Unexpected end of input'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>while(true){}</script></ReactClass>': {
+            index: 60,
+            lineNumber: 1,
+            column: 61,
+            message: 'Error: Line 1: Unexpected token undefined',
+            description: 'Unexpected token undefined'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script>1</script></ReactClass>': {
+            index: 60,
+            lineNumber: 1,
+            column: 61,
+            message: 'Error: Line 1: Unexpected token undefined',
+            description: 'Unexpected token undefined'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script><div /></script></ReactClass>': {
+            index: 60,
+            lineNumber: 1,
+            column: 61,
+            message: 'Error: Line 1: Unexpected token undefined',
+            description: 'Unexpected token undefined'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script src="file.js"></script></ReactClass>': {
+            index: 83,
+            lineNumber: 1,
+            column: 84,
+            message: 'Error: Line 1: this script must have an ID',
+            description: 'this script must have an ID'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js"></ReactClass>': {
+            index: 97,
+            lineNumber: 1,
+            column: 98,
+            message: 'Error: Line 1: Expected corresponding JSX closing tag for script',
+            description: 'Expected corresponding JSX closing tag for script'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><script id="file" src="file.js">': {
+            index: 84,
+            lineNumber: 1,
+            column: 85,
+            message: 'Error: Line 1: Unexpected end of input',
+            description: 'Unexpected end of input'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style> div { color: red }</ReactClass>': {
+            index: 91,
+            lineNumber: 1,
+            column: 92,
+            message: 'Error: Line 1: Expected corresponding JSX closing tag for style',
+            description: 'Expected corresponding JSX closing tag for style'
+
+        },
+        '<!DOCTYPE JSX><ReactClass name="Module"><div>A</div><style> div { color: red }': {
+            index: 78,
+            lineNumber: 1,
+            column: 79,
+            message: 'Error: Line 1: Expected corresponding JSX closing tag for style',
+            description: 'Expected corresponding JSX closing tag for style'
+
+        },
+    },
     'JSX': {
         '<a />': {
             type: 'ExpressionStatement',
