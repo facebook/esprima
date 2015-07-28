@@ -25,9 +25,9 @@
     }
     function handleSubmit(e) {
       e.preventDefault();
-      var nextItems = items.concat([text]);
-      var nextText = '';
-      this.setState({items: nextItems, text: nextText});
+      items = items.concat([text]);
+      text = '';
+      this.setState({});
     }
   </script>
 </ReactClass>
