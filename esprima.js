@@ -2393,8 +2393,7 @@
                 type: Syntax.JSXOpeningElement,
                 name: name,
                 selfClosing: selfClosing || !!VoidElements[name.name],
-                attributes: attributes,
-                isVoid: !!VoidElements[name.name]
+                attributes: attributes
             };
         },
 
