@@ -6566,7 +6566,7 @@
         source: 1,
         track: 1,
         wbr: 1
-    }
+    };
 
 
     XHTMLEntities = {
