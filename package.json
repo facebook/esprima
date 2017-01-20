@@ -51,6 +51,14 @@
         "json-diff": "~0.3.1",
         "commander": "~2.5.0"
     },
+    "keywords": {
+	"ecmascript",
+	"parser",
+	"javascript",
+	"es6",
+	"harmony",
+	"JSX"
+    },
     "scripts": {
         "generate-regex": "node tools/generate-identifier-regex.js",
 
