@@ -7240,6 +7240,138 @@ var fbTestFixture = {
                 end: { line: 1, column: 41 }
             }
         },
+        'class Foo { prop1:string= "bar"; prop2:number = a + b; }': {
+            type: 'ClassDeclaration',
+            id: {
+                type: 'Identifier',
+                name: 'Foo',
+                range: [6, 9],
+                loc: {
+                    start: { line: 1, column: 6 },
+                    end: { line: 1, column: 9 }
+                }
+            },
+            superClass: null,
+            body: {
+                type: 'ClassBody',
+                body: [{
+                    type: 'ClassProperty',
+                    key: {
+                        type: 'Identifier',
+                        name: 'prop1',
+                        range: [12, 17],
+                        loc: {
+                            start: { line: 1, column: 12 },
+                            end: { line: 1, column: 17 }
+                        }
+                    },
+                    typeAnnotation: {
+                        type: 'TypeAnnotation',
+                        typeAnnotation: {
+                            type: 'StringTypeAnnotation',
+                            range: [18, 24],
+                            loc: {
+                                start: { line: 1, column: 18 },
+                                end: { line: 1, column: 24 }
+                            }
+                        },
+                        range: [17, 24],
+                        loc: {
+                            start: { line: 1, column: 17 },
+                            end: { line: 1, column: 24 }
+                        }
+                    },
+                    computed: false,
+                    'static': false,
+                    value: {
+                        type: 'Literal',
+                        value: 'bar',
+                        raw: '"bar"',
+                        range: [26, 31],
+                        loc: {
+                            start: { line: 1, column: 26 },
+                            end: { line: 1, column: 31 }
+                        }
+                    },
+                    range: [12, 32],
+                    loc: {
+                        start: { line: 1, column: 12 },
+                        end: { line: 1, column: 32 }
+                    }
+                }, {
+                    type: 'ClassProperty',
+                    key: {
+                        type: 'Identifier',
+                        name: 'prop2',
+                        range: [33, 38],
+                        loc: {
+                            start: { line: 1, column: 33 },
+                            end: { line: 1, column: 38 }
+                        }
+                    },
+                    typeAnnotation: {
+                        type: 'TypeAnnotation',
+                        typeAnnotation: {
+                            type: 'NumberTypeAnnotation',
+                            range: [39, 45],
+                            loc: {
+                                start: { line: 1, column: 39 },
+                                end: { line: 1, column: 45 }
+                            }
+                        },
+                        range: [38, 45],
+                        loc: {
+                            start: { line: 1, column: 38 },
+                            end: { line: 1, column: 45 }
+                        }
+                    },
+                    computed: false,
+                    'static': false,
+                    value: {
+                        type: 'BinaryExpression',
+                        operator: '+',
+                        left: {
+                            type: 'Identifier',
+                            name: 'a',
+                            range: [48, 49],
+                            loc: {
+                                start: { line: 1, column: 48 },
+                                end: { line: 1, column: 49 }
+                            }
+                        },
+                        right: {
+                            type: 'Identifier',
+                            name: 'b',
+                            range: [52, 53],
+                            loc: {
+                                start: { line: 1, column: 52 },
+                                end: { line: 1, column: 53 }
+                            }
+                        },
+                        range: [48, 53],
+                        loc: {
+                            start: { line: 1, column: 48 },
+                            end: { line: 1, column: 53 }
+                        }
+                    },
+                    range: [33, 54],
+                    loc: {
+                        start: { line: 1, column: 33 },
+                        end: { line: 1, column: 54 }
+                    }
+                }],
+                range: [10, 56],
+                loc: {
+                    start: { line: 1, column: 10 },
+                    end: { line: 1, column: 56 }
+                }
+            },
+            range: [0, 56],
+            loc: {
+                start: { line: 1, column: 0 },
+                end: { line: 1, column: 56 }
+            }
+        },
         'class Foo { static prop1:string; prop2:number; }': {
             type: 'ClassDeclaration',
             id: {

@@ -2654,13 +2654,14 @@
             };
         },
 
-        createClassProperty: function (key, typeAnnotation, computed, isStatic) {
+        createClassProperty: function (key, typeAnnotation, computed, isStatic, init) {
             return {
                 type: Syntax.ClassProperty,
                 key: key,
                 typeAnnotation: typeAnnotation,
                 computed: computed,
-                static: isStatic
+                static: isStatic,
+                value: init
             };
         },
 
@@ -6220,16 +6221,21 @@
     }
 
     function parseClassProperty(key, computed, isStatic) {
-        var typeAnnotation;
+        var typeAnnotation, init;
 
         typeAnnotation = parseTypeAnnotation();
+        if (match('=')) {
+            lex();
+            init = parseAssignmentExpression();
+        }
         expect(';');
 
         return delegate.createClassProperty(
             key,
             typeAnnotation,
             computed,
-            isStatic
+            isStatic,
+            init
         );
     }
 
